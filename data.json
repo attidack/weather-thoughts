@@ -1,0 +1,21 @@
+{
+    "Answers":[
+        {
+            "cold": "Commonly used data types do not include?"
+        },
+        {
+            "freezing": "The condition of an if / else statment is enclosed with?"
+        },
+        {
+            "warm": "an array in JavaScript can be used to store?"
+
+        }, {
+            "hot": "what do you have to enclose a string to when assigning it to a variable?"
+           
+        },
+        {
+            "raining": "A useful tool during development and debugging for printing content to the debugger is?",
+           
+        }
+    ]
+}
