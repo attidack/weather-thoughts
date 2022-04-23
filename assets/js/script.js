@@ -6,6 +6,7 @@ let answers = $('#answers')
 
 $.getJSON('data.json', function (data){
     console.log(data.Answers.cold)
+    adding_Questions(data)
     
 });
 
@@ -15,9 +16,16 @@ $('button').click(function(){
     $('#answers').show()
 
     handleSave()
-    iterateTempStatement()
 });
 
+function iterateTempStatement(temp){
+    if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
+        var tooCold = $('<div>')
+        .attr('id', 'cold')
+        .text('cold');
+        answers.append(tooCold)
+    }
+}
 // Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
@@ -25,14 +33,6 @@ function adding_Questions(data){
     $('#warm').text(data.Answers.warm)
     $('#hot').text(data.Answers.hot)
     $('#raining').text(data.Answers.raining)
-}
-
-function iterateTempStatement(temp){
-    if (temp < jacketRequirementElement.val()) {
-        var tooCold = $('<div>')
-        .attr('id', 'cold');
-        answers.append(tooCold)
-    }
 }
 
 function handleSave(){
