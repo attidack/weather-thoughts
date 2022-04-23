@@ -35,16 +35,16 @@ function setItems(){
     let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
-    let jacketoutput = $('#jacketOutput').val()
-    let sweaterOutput = $('#sweaterOutput').val()    
+    let jacketoutput = $('#jacketOutput')
+    let sweaterOutput = $('#sweaterOutput')   
     
     name = optionsObject.name;
     zipcode = optionsObject.zip;
     // $('#sliderWithValue').attr('value', "100")
     // $('#sliderWithValue').attr('value', optionsObject.jacket)
-    // sweaterOutput = optionsObject.sweater;
+    sweaterOutput.value = optionsObject.sweater;
     console.log(sweaterOutput)  
-    jacketoutput = optionsObject.jacket;
+    jacketoutput.value = optionsObject.jacket;
     jacketRequirement = optionsObject.jacket;
     sweaterRequirement = optionsObject.sweater;
 }
