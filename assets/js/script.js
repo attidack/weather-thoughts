@@ -1,11 +1,39 @@
 let options = {}
+$('#answers').hide()
+let jacketRequirementElement = $('#sliderWithValue')
+let sweaterRequirementElement = $('#sliderWithValue2')
+let answers = $('#answers')
 
-fetch('data.json')
-.then(function (response){
-    return response.json();
-})
+$.getJSON('data.json', function (data){
+    console.log(data.Answers.cold)
+    
+});
 
-let saveBtn = $('button').on("click", handleSave )
+
+$('button').click(function(){
+    $('#welcomeScreen').hide()
+    $('#answers').show()
+
+    handleSave()
+    iterateTempStatement()
+});
+
+// Create Question Function
+function adding_Questions(data){
+    $('#cold').text(data.Answers.cold)
+    $('#freezing').text(data.Answers.freezing)
+    $('#warm').text(data.Answers.warm)
+    $('#hot').text(data.Answers.hot)
+    $('#raining').text(data.Answers.raining)
+}
+
+function iterateTempStatement(temp){
+    if (temp < jacketRequirementElement.val()) {
+        var tooCold = $('<div>')
+        .attr('id', 'cold');
+        answers.append(tooCold)
+    }
+}
 
 function handleSave(){
     let name = $('#name').val()
@@ -31,7 +59,6 @@ function loadOptions(){
 loadOptions()
 
 function setItems(){
-    
     let name = $('#name');
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
@@ -42,7 +69,6 @@ function setItems(){
     jacketOutput.val(optionsObject.jacket);
     sweaterRequirement.attr('value',optionsObject.sweater);
     sweaterOutput.val(optionsObject.sweater);
-
 }
 
 var gitZipLocationKey = function(postal_code) {
@@ -57,14 +83,14 @@ var gitZipLocationKey = function(postal_code) {
                 var locationKey = data[0].Key
                 gitWeather(locationKey)
             });
-        } else {
-            alert("couldn't get the zipcode location");
-        }
+        } //else {
+        //     alert("couldn't get the zipcode location");
+        // }
     })
-    .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-        alert("Unable to connect to accuweather"); 
-    });
+    // .catch(function(error) {
+    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+    //     alert("Unable to connect to accuweather"); 
+    // });
 };
 var gitWeather = function(locationKey) {
     // format the githup api url
@@ -77,16 +103,17 @@ var gitWeather = function(locationKey) {
             response.json().then(function(data) {
                 var temp = data[0].Temperature.Imperial.Value
                 console.log(temp)
+                iterateTempStatement(temp)
                 
             });
-        } else {
-            alert("Temp not found");
-        }
+        } //else {
+        //     alert("Temp not found");
+        // }
     })
-    .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-        alert("Unable to connect to accuweather"); 
-    });
+    // .catch(function(error) {
+    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+    //     alert("Unable to connect to accuweather"); 
+    // });
 };
 var gitIpAddress = function() {
     // format the githup api url
@@ -106,11 +133,10 @@ var gitIpAddress = function() {
             alert("Ip not found");
         }
     })
-    .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-        alert("Unable to connect to abstractapi"); 
-    });
+    // .catch(function(error) {
+    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+    //     alert("Unable to connect to abstractapi"); 
+    // });
 };
 gitIpAddress()
- bulmaSlider.attach();
- 
+bulmaSlider.attach();
