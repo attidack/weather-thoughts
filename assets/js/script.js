@@ -1,6 +1,4 @@
-
 let options = {}
-let zipcodeElement = $('#zipcode');
 
 fetch('data.json')
 .then(function (response){
@@ -10,13 +8,11 @@ fetch('data.json')
 let saveBtn = $('button').on("click", handleSave )
 
 function handleSave(){
-    let zipcode = $('#zipcode').val()
     let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
     var optionsObject = {
         name,
-        zip: zipcode,
         jacket: jacketRequirement,
         sweater: sweaterRequirement,
     }
@@ -41,19 +37,17 @@ function setItems(){
     let sweaterRequirement = $('#sliderWithValue2');
     let jacketOutput = $('#jacketOutput');
     let sweaterOutput = $('#sweaterOutput');  
-    
     name.val(optionsObject.name);
-    zipcodeElement.val(optionsObject.zip);
-    
     jacketRequirement.attr('value',optionsObject.jacket);
     jacketOutput.val(optionsObject.jacket);
+    sweaterRequirement.attr('value',optionsObject.sweater);
+    sweaterOutput.val(optionsObject.sweater);
 
 }
 
-var gitZipLocationKey = function() {
+var gitZipLocationKey = function(postal_code) {
     // format the githup api url
-    var zipcode = zipcodeElement.val()
-    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + zipcode;
+    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
 
     //make a request to the url
     fetch(apiUrl)
@@ -82,6 +76,7 @@ var gitWeather = function(locationKey) {
         if (response.ok) {
             response.json().then(function(data) {
                 var temp = data[0].Temperature.Imperial.Value
+                console.log(temp)
                 
             });
         } else {
@@ -93,7 +88,7 @@ var gitWeather = function(locationKey) {
         alert("Unable to connect to accuweather"); 
     });
 };
-var gitIpAddress = function(locationKey) {
+var gitIpAddress = function() {
     // format the githup api url
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=935f7d46cc714485a37a6995ea276daa";
 
@@ -102,8 +97,9 @@ var gitIpAddress = function(locationKey) {
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                console.log(data[0].Temperature.Imperial.Value)
-                var temp = data[0].Temperature.Imperial.Value
+                console.log(data.postal_code)
+                var postal_code = data.postal_code
+                gitZipLocationKey(postal_code)
                 
             });
         } else {
@@ -112,8 +108,9 @@ var gitIpAddress = function(locationKey) {
     })
     .catch(function(error) {
         // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-        alert("Unable to connect to accuweather"); 
+        alert("Unable to connect to abstractapi"); 
     });
 };
+gitIpAddress()
  bulmaSlider.attach();
- gitZipLocationKey()
+ 
