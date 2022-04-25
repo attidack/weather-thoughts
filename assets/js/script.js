@@ -22,8 +22,6 @@ $('#option').click(function(){
     $('#welcomeScreen').show()
     $('#answers').hide()
     $('#option').hide()
-    handleSave()
-    iterateTempStatement()
 });
 
 function iterateTempStatement(){
@@ -43,7 +41,7 @@ function iterateTempStatement(){
         adding_Questions(choices)
     }else {
         var hot = $('<div>').attr('id', 'hot');
-        answers.append(hot) ``
+        answers.append(hot) 
         adding_Questions(choices)
     }
 }
