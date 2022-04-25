@@ -19,25 +19,21 @@ $('button').click(function(){
 
 function iterateTempStatement(){
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
-        var tooCold = $('<div>')
-        .attr('id', 'cold');
+        var tooCold = $('<div>').attr('id', 'cold');
         answers.append(tooCold)
         adding_Questions(choices)
         
     } else if (temp < sweaterRequirementElement.val() && temp < jacketRequirementElement.val()) {
-        var freezing = $('<div>')
-        .attr('id', 'freezing');
+        var freezing = $('<div>').attr('id', 'freezing');
         answers.append(freezing)
         adding_Questions(choices)
         
     } else if (temp > sweaterRequirementElement.val() && temp < 90){
-        var nice = $('<div>')
-        .attr('id', 'nice');
+        var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
     }else {
-        var hot = $('<div>')
-        .attr('id', 'hot');
+        var hot = $('<div>').attr('id', 'hot');
         answers.append(hot)
         adding_Questions(choices)
     }
