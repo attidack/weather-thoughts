@@ -23,7 +23,7 @@ $('#option').click(function(){
     $('#answers').hide()
     $('#option').hide()
 });
-
+loadOptions()
 function iterateTempStatement(){
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>').attr('id', 'cold');
@@ -39,10 +39,12 @@ function iterateTempStatement(){
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
-    }else {
+    }else if (temp > 90){
         var hot = $('<div>').attr('id', 'hot');
         answers.append(hot) 
         adding_Questions(choices)
+    }else {
+        alert('didnt load values')
     }
 }
 
@@ -75,7 +77,7 @@ function loadOptions(){
     }
 }
 
-loadOptions()
+
 
 function setItems(){
     let name = $('#name');
