@@ -30,7 +30,12 @@ function iterateTempStatement(){
         answers.append(freezing)
         adding_Questions(choices)
         
-    } else {
+    } else if (temp > sweaterRequirementElement.val() && temp < 90){
+        var nice = $('<div>')
+        .attr('id', 'nice');
+        answers.append(nice)
+        adding_Questions(choices)
+    }else {
         var hot = $('<div>')
         .attr('id', 'hot');
         answers.append(hot)
@@ -41,7 +46,8 @@ function iterateTempStatement(){
 // Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
-    $('#freezing').text(data.Answers.freezing)
+    $('#freezing').text(data.Answers.nice)
+    $('#nice').text(data.Answers.hot)
     $('#hot').text(data.Answers.hot)
 }
 

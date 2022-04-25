@@ -1,11 +1,10 @@
 {
     "Answers":
         {
-            "cold": "Its could you should wear a sweater",
-            "freezing": "its too cold wear a jacket",
-            "hot": "its fucking hot",
-            "raining": "grab an umbrella"
-
+            "cold": "Its cold you should wear a sweater",
+            "freezing": "its too cold! Wear a jacket",
+            "nice": "its beautiful out",
+            "hot": "its hot"
         }
     
 }
