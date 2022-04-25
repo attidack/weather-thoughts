@@ -3,36 +3,46 @@ $('#answers').hide()
 let jacketRequirementElement = $('#sliderWithValue')
 let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
-
-$.getJSON('data.json', function (data){
+var temp;
+var choices;
+ $.getJSON('data.json', function (data){
     console.log(data.Answers.cold)
-    adding_Questions(data)
-    
+    choices = data
 });
-
 
 $('button').click(function(){
     $('#welcomeScreen').hide()
     $('#answers').show()
-
     handleSave()
+    iterateTempStatement()
 });
 
-function iterateTempStatement(temp){
+function iterateTempStatement(){
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>')
-        .attr('id', 'cold')
-        .text('cold');
+        .attr('id', 'cold');
         answers.append(tooCold)
+        adding_Questions(choices)
+        
+    } else if (temp < sweaterRequirementElement.val() && temp < jacketRequirementElement.val()) {
+        var freezing = $('<div>')
+        .attr('id', 'freezing');
+        answers.append(freezing)
+        adding_Questions(choices)
+        
+    } else {
+        var hot = $('<div>')
+        .attr('id', 'hot');
+        answers.append(hot)
+        adding_Questions(choices)
     }
 }
+
 // Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
     $('#freezing').text(data.Answers.freezing)
-    $('#warm').text(data.Answers.warm)
     $('#hot').text(data.Answers.hot)
-    $('#raining').text(data.Answers.raining)
 }
 
 function handleSave(){
@@ -101,9 +111,9 @@ var gitWeather = function(locationKey) {
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                var temp = data[0].Temperature.Imperial.Value
+                temp = data[0].Temperature.Imperial.Value
                 console.log(temp)
-                iterateTempStatement(temp)
+                
                 
             });
         } //else {
