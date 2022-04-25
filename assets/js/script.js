@@ -34,7 +34,7 @@ function iterateTempStatement(){
         adding_Questions(choices)
     }else {
         var hot = $('<div>').attr('id', 'hot');
-        answers.append(hot)
+        answers.append(hot) ``
         adding_Questions(choices)
     }
 }
