@@ -1,5 +1,6 @@
 let options = {}
 $('#answers').hide()
+$('#option').hide()
 let jacketRequirementElement = $('#sliderWithValue')
 let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
@@ -10,9 +11,17 @@ var choices;
     choices = data
 });
 
-$('button').click(function(){
+$('#question').click(function(){
     $('#welcomeScreen').hide()
     $('#answers').show()
+    $('#option').show()
+    handleSave()
+    iterateTempStatement()
+});
+$('#option').click(function(){
+    $('#welcomeScreen').show()
+    $('#answers').hide()
+    $('#option').hide()
     handleSave()
     iterateTempStatement()
 });
