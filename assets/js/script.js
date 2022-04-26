@@ -57,22 +57,24 @@ function adding_Questions(data){
 }
 
 function handleSave(){
-    let name = $('#name').val()
+    // let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
     var optionsObject = {
-        name,
         jacket: jacketRequirement,
         sweater: sweaterRequirement,
     }
-    options[optionsObject.name] = optionsObject.zip, optionsObject.jacket
+    options[optionsObject.zip] =  optionsObject.jacket
     localStorage.setItem('options', JSON.stringify(optionsObject))
+    console.log(optionsObject)
+    loadOptions()
 }
 function loadOptions(){
-    optionsObject = JSON.parse(localStorage.getItem('options'))
-    if (!options) {
+    var optionsObject = localStorage.getItem('options')
+    if (!optionsObject) {
         options = {}
     } else {
+        options = JSON.parse(optionsObject)
     setItems()
     }
 }
@@ -80,12 +82,12 @@ function loadOptions(){
 
 
 function setItems(){
-    let name = $('#name');
+    // let name = $('#name');
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
     let jacketOutput = $('#jacketOutput');
     let sweaterOutput = $('#sweaterOutput');  
-    name.val(optionsObject.name);
+    // name.val(optionsObject.name);
     jacketRequirement.attr('value',optionsObject.jacket);
     jacketOutput.val(optionsObject.jacket);
     sweaterRequirement.attr('value',optionsObject.sweater);
