@@ -25,6 +25,10 @@ $('#option').click(function(){
 });
 loadOptions()
 function iterateTempStatement(){
+   while (answers[0].hasChildNodes()) {
+        answers[0].removeChild(answers[0].lastChild);
+    }
+    console.log(temp > sweaterRequirementElement.val() && temp < 90)
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>').attr('id', 'cold');
         answers.append(tooCold)
@@ -36,6 +40,7 @@ function iterateTempStatement(){
         adding_Questions(choices)
         
     } else if (temp > sweaterRequirementElement.val() && temp < 90){
+        console.log(temp > sweaterRequirementElement.val() && temp < 90)
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
@@ -46,33 +51,37 @@ function iterateTempStatement(){
     }else {
         alert('didnt load values')
     }
+    console.log(answers)
 }
 
 // Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
-    $('#freezing').text(data.Answers.nice)
-    $('#nice').text(data.Answers.hot)
+    $('#freezing').text(data.Answers.freezing)
+    $('#nice').text(data.Answers.nice)
     $('#hot').text(data.Answers.hot)
 }
 
 function handleSave(){
-    let name = $('#name').val()
+    // let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
     var optionsObject = {
-        name,
         jacket: jacketRequirement,
         sweater: sweaterRequirement,
     }
-    options[optionsObject.name] = optionsObject.zip, optionsObject.jacket
+    options = optionsObject
+    options[optionsObject.zip] =  optionsObject.jacket
     localStorage.setItem('options', JSON.stringify(optionsObject))
+    console.log(optionsObject)
+    
 }
 function loadOptions(){
-    optionsObject = JSON.parse(localStorage.getItem('options'))
+    var optionsObject = localStorage.getItem('options')
     if (!optionsObject) {
         options = {}
     } else {
+        options = JSON.parse(optionsObject)
     setItems()
     }
 }
@@ -80,16 +89,16 @@ function loadOptions(){
 
 
 function setItems(){
-    let name = $('#name');
+    // let name = $('#name');
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
     let jacketOutput = $('#jacketOutput');
     let sweaterOutput = $('#sweaterOutput');  
-    name.val(optionsObject.name);
-    jacketRequirement.attr('value',optionsObject.jacket);
-    jacketOutput.val(optionsObject.jacket);
-    sweaterRequirement.attr('value',optionsObject.sweater);
-    sweaterOutput.val(optionsObject.sweater);
+    // name.val(optionsObject.name);
+    jacketRequirement.attr('value',options.jacket);
+    jacketOutput.val(options.jacket);
+    sweaterRequirement.attr('value',options.sweater);
+    sweaterOutput.val(options.sweater);
 }
 
 var gitZipLocationKey = function(postal_code) {
