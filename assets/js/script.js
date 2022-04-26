@@ -1,13 +1,11 @@
 let options = {}
-$('#answers').hide()
-$('#option').hide()
+$('#welcomeScreen').hide()
 let jacketRequirementElement = $('#sliderWithValue')
 let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
 var temp;
 var choices;
  $.getJSON('data.json', function (data){
-    console.log(data.Answers.cold)
     choices = data
 });
 
@@ -25,10 +23,10 @@ $('#option').click(function(){
 });
 loadOptions()
 function iterateTempStatement(){
+    console.log(temp)
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
-    console.log(temp > sweaterRequirementElement.val() && temp < 90)
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>').attr('id', 'cold');
         answers.append(tooCold)
@@ -40,7 +38,6 @@ function iterateTempStatement(){
         adding_Questions(choices)
         
     } else if (temp > sweaterRequirementElement.val() && temp < 90){
-        console.log(temp > sweaterRequirementElement.val() && temp < 90)
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
@@ -51,7 +48,6 @@ function iterateTempStatement(){
     }else {
         alert('didnt load values')
     }
-    console.log(answers)
 }
 
 // Create Question Function
@@ -73,13 +69,16 @@ function handleSave(){
     options = optionsObject
     options[optionsObject.zip] =  optionsObject.jacket
     localStorage.setItem('options', JSON.stringify(optionsObject))
-    console.log(optionsObject)
+    
     
 }
 function loadOptions(){
     var optionsObject = localStorage.getItem('options')
     if (!optionsObject) {
-        options = {}
+        options = {
+            jacket: 50,
+            sweater: 65,
+        }
     } else {
         options = JSON.parse(optionsObject)
     setItems()
@@ -131,8 +130,8 @@ var gitWeather = function(locationKey) {
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                temp = data[0].Temperature.Imperial.Value
-                console.log(temp)
+                 temp = data[0].Temperature.Imperial.Value
+                iterateTempStatement()
                 
                 
             });
@@ -168,5 +167,6 @@ var gitIpAddress = function() {
     //     alert("Unable to connect to abstractapi"); 
     // });
 };
+
 gitIpAddress()
 bulmaSlider.attach();
