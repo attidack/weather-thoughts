@@ -39,7 +39,7 @@ function iterateTempStatement(){
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
-    }else if (temp > 90){
+    }else if (temp > 91){
         var hot = $('<div>').attr('id', 'hot');
         answers.append(hot) 
         adding_Questions(choices)
@@ -70,7 +70,7 @@ function handleSave(){
 }
 function loadOptions(){
     optionsObject = JSON.parse(localStorage.getItem('options'))
-    if (!options) {
+    if (!optionsObject) {
         options = {}
     } else {
     setItems()
