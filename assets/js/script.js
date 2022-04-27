@@ -161,6 +161,13 @@ var gitIpAddress = function() {
             });
         } else {
             alert("Ip not found");
+            $('#welcomeScreen').show()
+            $('#answers').hide()
+            $('#option').hide()
+            var postalInput = $('<input>').attr('id', 'postalcodeInput');
+            var postal_code = postalcodeInput.val()
+            answers.append(postalInput)
+            gitZipLocationKey(postal_code)
         }
     })
     .catch(function(error) {
