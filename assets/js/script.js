@@ -22,6 +22,7 @@ $('#option').click(function(){
     $('#option').hide()
 });
 loadOptions()
+
 function iterateTempStatement(){
     console.log(temp)
    while (answers[0].hasChildNodes()) {
@@ -159,6 +160,9 @@ var gitIpAddress = function() {
                 
             });
         } else {
+            $.getJSON('https://ipinfo.io/json', function(data) {
+                console.log(JSON.stringify(data, null, 2));
+            });
             alert("Ip not found");
         }
     })
@@ -167,6 +171,10 @@ var gitIpAddress = function() {
     //     alert("Unable to connect to abstractapi"); 
     // });
 };
+
+// $.getJSON('https://ipinfo.io/json', function(data) {
+//   console.log(JSON.stringify(data, null, 2));
+// });
 
 gitIpAddress()
 bulmaSlider.attach();
