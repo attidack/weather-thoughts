@@ -5,7 +5,7 @@ let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
 var temp;
 var choices;
- $.getJSON('data.json', function (data){
+$.getJSON('data.json', function (data){
     choices = data
 });
 
@@ -16,6 +16,7 @@ $('#question').click(function(){
     handleSave()
     iterateTempStatement()
 });
+
 $('#option').click(function(){
     $('#welcomeScreen').show()
     $('#answers').hide()
@@ -29,7 +30,7 @@ function iterateTempStatement(){
         answers[0].removeChild(answers[0].lastChild);
     }
     if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
-        var tooCold = $('<div>').attr('id', 'cold');
+        var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
         answers.append(tooCold)
         adding_Questions(choices)
         

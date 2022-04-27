@@ -1,31 +1,40 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Do I need a Jacket?</title>
-    <link rel="stylesheet" href="./assets/css/style.css" />
-  </head>
-  <body>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Do I need a Jacket?</title>
+  <link rel="stylesheet" href="./assets/css/style.css" />
+</head>
+
+<body>
   <section id="welcomeScreen" class="section has-text-primary-light">
     <div class="container">
-    <div id="optionsQuestions">
+      <div id="optionsQuestions">
         <h3>
-            Options
+          Options
         </h3>
-        <div><h4>jacket degrees</h4><input id="sliderWithValue" class="slider has-output is-fullwidth" min="0" max="100" value="50" step="1" type="range">
-            <output for="sliderWithValue" id="jacketOutput">50</output></div>
-        <div><h4>Sweater degrees</h4><input id="sliderWithValue2" class="slider has-output is-fullwidth" min="0" max="100" value="65" step="1" type="range">
-            <output for="sliderWithValue2" id="sweaterOutput">65</output></div>
-    </div>
-    <button class="button is-light" id="question">Do you need a jacket today?</button>
+        <div>
+          <h4>Jacket degrees</h4><input id="sliderWithValue" class="slider has-output is-fullwidth" min="0" max="100"
+            value="50" step="1" type="range">
+          <output for="sliderWithValue" id="jacketOutput">50</output>
+        </div>
+        <div>
+          <h4>Sweater degrees</h4><input id="sliderWithValue2" class="slider has-output is-fullwidth" min="0" max="100"
+            value="65" step="1" type="range">
+          <output for="sliderWithValue2" id="sweaterOutput">65</output>
+        </div>
+      </div>
+      <button class="button is-rounded is-focused" id="question">Do you need a jacket today?</button>
   </section>
-  <section id="answers" class="container has-text-primary-light">
-  </section>
-  <button class="button is-light" id="option">Options</button>
-    
+  <div id="answers" class="answers has-text-primary-light">
+  </div>
+  <button class="button is-justify-content-center is-rounded is-focused" id="option">Options</button>
+
   <script src="https://cdn.jsdelivr.net/npm/bulma-slider@2.0.4/dist/js/bulma-slider.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="/assets/js/script.js"></script>
-  </body>
+</body>
+
 </html>
