@@ -21,10 +21,10 @@ $('#option').click(function(){
     $('#answers').hide()
     $('#option').hide()
 });
+
 loadOptions()
 
 function iterateTempStatement(){
-    console.log(temp)
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
@@ -60,7 +60,6 @@ function adding_Questions(data){
 }
 
 function handleSave(){
-    // let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
     var optionsObject = {
@@ -102,6 +101,7 @@ function setItems(){
 }
 
 var gitZipLocationKey = function(postal_code) {
+    postal_code = 84104;
     // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
 
@@ -113,14 +113,14 @@ var gitZipLocationKey = function(postal_code) {
                 var locationKey = data[0].Key
                 gitWeather(locationKey)
             });
-        } //else {
-        //     alert("couldn't get the zipcode location");
-        // }
+        } else {
+            alert("couldn't get the zipcode location");
+        }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to accuweather"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to accuweather"); 
+    });
 };
 var gitWeather = function(locationKey) {
     // format the githup api url
@@ -136,14 +136,14 @@ var gitWeather = function(locationKey) {
                 
                 
             });
-        } //else {
-        //     alert("Temp not found");
-        // }
+        } else {
+             alert("Temp not found");
+         }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to accuweather"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to accuweather"); 
+    });
 };
 var gitIpAddress = function() {
     // format the githup api url
@@ -159,6 +159,16 @@ var gitIpAddress = function() {
                 gitZipLocationKey(postal_code)
                 
             });
+        } else if (postal_code = null) {
+            alert("please enter a postal code");
+            $('#welcomeScreen').show()
+            $('#answers').hide()
+            $('#option').hide()
+            var postalInput = $('<input>').attr('id', 'postalcodeInput');
+            var postal_code = 84104;
+            var optionsQuestions = $('#optionsQuestions')
+            optionsQuestions.append(postalInput)
+            gitZipLocationKey(postal_code)
         } else {
             $.getJSON('https://ipinfo.io/json', function(data) {
                 console.log(JSON.stringify(data, null, 2));
@@ -166,10 +176,10 @@ var gitIpAddress = function() {
             alert("Ip not found");
         }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to abstractapi"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to abstractapi"); 
+    });
 };
 
 // $.getJSON('https://ipinfo.io/json', function(data) {
