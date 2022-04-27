@@ -166,7 +166,8 @@ var gitIpAddress = function() {
             $('#option').hide()
             var postalInput = $('<input>').attr('id', 'postalcodeInput');
             var postal_code = postalcodeInput.val()
-            answers.append(postalInput)
+            var optionsQuestions = $('#optionsQuestions')
+            optionsQuestions.append(postalInput)
             gitZipLocationKey(postal_code)
         }
     })
