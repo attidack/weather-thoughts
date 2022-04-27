@@ -21,7 +21,9 @@ $('#option').click(function(){
     $('#answers').hide()
     $('#option').hide()
 });
+
 loadOptions()
+
 function iterateTempStatement(){
     console.log(temp)
    while (answers[0].hasChildNodes()) {
@@ -59,7 +61,6 @@ function adding_Questions(data){
 }
 
 function handleSave(){
-    // let name = $('#name').val()
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
     var optionsObject = {
