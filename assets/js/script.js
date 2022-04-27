@@ -113,14 +113,14 @@ var gitZipLocationKey = function(postal_code) {
                 var locationKey = data[0].Key
                 gitWeather(locationKey)
             });
-        } //else {
-        //     alert("couldn't get the zipcode location");
-        // }
+        } else {
+            alert("couldn't get the zipcode location");
+        }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to accuweather"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to accuweather"); 
+    });
 };
 var gitWeather = function(locationKey) {
     // format the githup api url
@@ -136,14 +136,14 @@ var gitWeather = function(locationKey) {
                 
                 
             });
-        } //else {
-        //     alert("Temp not found");
-        // }
+        } else {
+             alert("Temp not found");
+         }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to accuweather"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to accuweather"); 
+    });
 };
 var gitIpAddress = function() {
     // format the githup api url
@@ -163,10 +163,10 @@ var gitIpAddress = function() {
             alert("Ip not found");
         }
     })
-    // .catch(function(error) {
-    //     // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
-    //     alert("Unable to connect to abstractapi"); 
-    // });
+    .catch(function(error) {
+        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
+        alert("Unable to connect to abstractapi"); 
+    });
 };
 
 gitIpAddress()
