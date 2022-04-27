@@ -102,6 +102,16 @@ function setItems(){
 }
 
 var gitZipLocationKey = function(postal_code) {
+    if (postal_code = null) {
+        $('#welcomeScreen').show()
+        $('#answers').hide()
+        $('#option').hide()
+        var postalInput = $('<input>').attr('id', 'postalcodeInput');
+        var postal_code = postalcodeInput.val()
+        var optionsQuestions = $('#optionsQuestions')
+        optionsQuestions.append(postalInput)
+        gitZipLocationKey(postal_code)
+    }
     // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
 
@@ -161,14 +171,6 @@ var gitIpAddress = function() {
             });
         } else {
             alert("Ip not found");
-            $('#welcomeScreen').show()
-            $('#answers').hide()
-            $('#option').hide()
-            var postalInput = $('<input>').attr('id', 'postalcodeInput');
-            var postal_code = postalcodeInput.val()
-            var optionsQuestions = $('#optionsQuestions')
-            optionsQuestions.append(postalInput)
-            gitZipLocationKey(postal_code)
         }
     })
     .catch(function(error) {
