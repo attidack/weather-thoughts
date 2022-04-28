@@ -5,6 +5,8 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 
 ## Table of Contents
 - [Features](#features)
+- [Future](#future)
+- [Notes](#notes)
 - [Live-site](#live-site)
 - [Screenshot](#screenshot)
 - [Credits](#credits)
@@ -23,6 +25,13 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 
 - "R" rated text for weather conditions
 - move to native desktop app
+- use bulma modal containers for options
+
+## Notes
+- these api are free thus have a limited amout of calls they can do.
+- weather API calls are limited to 50 
+(25 page refreshes) 
+- ipaddress api calls are limited to 1 request per second
 
 ## Live-site
 
