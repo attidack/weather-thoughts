@@ -52,7 +52,6 @@ function iterateTempStatement(){
     }
 }
 
-// Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
     $('#freezing').text(data.Answers.freezing)
@@ -85,9 +84,6 @@ function loadOptions(){
     setItems()
     }
 }
-
-
-
 function setItems(){
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
@@ -98,12 +94,8 @@ function setItems(){
     sweaterRequirement.attr('value',options.sweater);
     sweaterOutput.val(options.sweater);
 }
-
 var gitZipLocationKey = function(postal_code) {
-    
-    // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -116,15 +108,11 @@ var gitZipLocationKey = function(postal_code) {
         }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to accuweather"); 
     });
 };
 var gitWeather = function(locationKey) {
-    // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ";
-
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -140,45 +128,38 @@ var gitWeather = function(locationKey) {
          }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to accuweather"); 
     });
 };
 var gitIpAddress = function() {
-    // format the githup api url
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=935f7d46cc714485a37a6995ea276daa";
-
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
-        if (response.ok) {
+
+        if (response.ok ) {
             response.json().then(function(data) {
                 var postal_code = data.postal_code
+                if (postal_code == null) {
+                    alert("please enter a postal code");
+                    $('#option').hide()
+                    var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
+                    var updateBtn = $('<button>').addClass('button is-light').attr('id', 'updateBtn').attr('placeholder', 'update').text('update');
+                    answers.append(postalInput, updateBtn)
+                    $('#updateBtn').click(function(){
+                        console.log($('#postalcodeInput').val())
+                        var postal_code =  $('#postalcodeInput').val()
+                        gitZipLocationKey(postal_code)
+                        $('#option').show()
+                    });
+                    
+                }
                 gitZipLocationKey(postal_code)
             });
-        } else if (postal_code == null) {
-            alert("please enter a postal code");
-            // $('#welcomeScreen').show()
-            // $('#answers').hide()
-            $('#option').hide()
-            var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
-            var updateBtn = $('<button>').addClass('button is-light').attr('id', 'updateBtn').attr('placeholder', 'update').text('update');
-            // var optionsQuestions = $('#optionsQuestions')
-            // optionsQuestions.append(postalInput, updateBtn)
-            answers.append(postalInput, updateBtn)
-            $('#updateBtn').click(function(){
-                console.log($('#postalcodeInput').val())
-                var postal_code =  $('#postalcodeInput').val()
-                gitZipLocationKey(postal_code)
-                $('#option').show()
-            });
-            
         } else {
             alert("Ip not found");
         }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to abstractapi"); 
     });
 };
