@@ -10,7 +10,7 @@ $.getJSON('data.json', function (data){
     choices = data
 });
 // api key for the weather https://developer.accuweather.com/
-let weatherApiKey = 'qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ' 
+let weatherApiKey = 'QnoBmmKUFEVUywOBW0Xbu5EnxoX0Jyot' 
 // api key for the IPaddress https://www.abstractapi.com/ip-geolocation-api
 let ipAddressApiKey = '935f7d46cc714485a37a6995ea276daa'
 
