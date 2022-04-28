@@ -9,10 +9,10 @@
 </head>
 
 <body>
+  <!-- this section is the options section -->
   <section id="welcomeScreen" class="section has-text-primary-light ">
-    <div class="is-flex is-justify-content-center is-align-items-center columns">
-      <div id="optionsQuestions" class="column is-4">
-        <div class="main">
+    <div class="is-flex is-justify-content-center is-align-items-center is-align-content-center columns">
+      <div id="optionsQuestions" class="column main is-6">
           <h3>
             Options
           </h3>
@@ -28,15 +28,18 @@
           </div>
           <div id="zipcodeInput"></div>
           <button class="button is-rounded" id="question">Do you need a jacket today?</button>
-        </div>
       </div>
-      
-      
   </section>
-  <div id="answers" class="answers has-text-primary-light">
+  <!-- this is what you see whent the page is first loaded -->
+  <div class="section is-flex is-justify-content-center is-align-items-center is-align-content-center columns">
+    <div id="answers" class="answers main has-text-primary-light column is-6">
+      <!-- everything is this div will be deleted and propogated with javaScript using jquary -->
+    </div>
   </div>
-  <button class="button is-justify-content-center is-rounded" id="option">Options</button>
-
+      <div class="columns is-centered">
+      <button class="button is-rounded is-small" id="option">Options</button>
+      </div>
+  
   <script src="https://cdn.jsdelivr.net/npm/bulma-slider@2.0.4/dist/js/bulma-slider.min.js"></script>
   <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
   <script src="/assets/js/script.js"></script>

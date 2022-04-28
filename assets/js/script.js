@@ -1,3 +1,4 @@
+// defining inital variables
 let options = {}
 $('#welcomeScreen').hide()
 let jacketRequirementElement = $('#sliderWithValue')
@@ -8,7 +9,12 @@ var choices;
 $.getJSON('data.json', function (data){
     choices = data
 });
+// api key for the weather https://developer.accuweather.com/
+let weatherApiKey = 'qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ' 
+// api key for the IPaddress https://www.abstractapi.com/ip-geolocation-api
+let ipAddressApiKey = '935f7d46cc714485a37a6995ea276daa'
 
+// on click functions for the buttons
 $('#question').click(function(){
     $('#welcomeScreen').hide()
     $('#answers').show()
@@ -22,8 +28,10 @@ $('#option').click(function(){
     $('#option').hide()
 });
 
+// call to load options
 loadOptions()
 
+// creates html based on temperatures and options
 function iterateTempStatement(){
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
@@ -52,6 +60,7 @@ function iterateTempStatement(){
     }
 }
 
+// adds the data to the questions
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
     $('#freezing').text(data.Answers.freezing)
@@ -59,6 +68,7 @@ function adding_Questions(data){
     $('#hot').text(data.Answers.hot)
 }
 
+// saves options to local storage
 function handleSave(){
     let jacketRequirement = $('#sliderWithValue').val()
     let sweaterRequirement = $('#sliderWithValue2').val()
@@ -72,18 +82,17 @@ function handleSave(){
     
     
 }
+// loads options from local storage
 function loadOptions(){
     var optionsObject = localStorage.getItem('options')
     if (!optionsObject) {
-        options = {
-            jacket: 50,
-            sweater: 65,
-        }
+        options = {}
     } else {
         options = JSON.parse(optionsObject)
     setItems()
     }
 }
+// set or define relationships with objects like the sliders and whats in local storage
 function setItems(){
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
@@ -94,8 +103,11 @@ function setItems(){
     sweaterRequirement.attr('value',options.sweater);
     sweaterOutput.val(options.sweater);
 }
+
+// api call section
+// gets a location key from accuweather based off the zip code
 var gitZipLocationKey = function(postal_code) {
-    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
+    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + postal_code;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -111,8 +123,9 @@ var gitZipLocationKey = function(postal_code) {
         alert("Unable to connect to accuweather"); 
     });
 };
+// uses locationkey data from the api above and looks up the current conditions for that location
 var gitWeather = function(locationKey) {
-    var apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ";
+    var apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKey;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -131,23 +144,27 @@ var gitWeather = function(locationKey) {
         alert("Unable to connect to accuweather"); 
     });
 };
+
+// looks up the zip code based on the IP address of the computer you are using, if no zipcode is found, it will ask you for a zipcode
 var gitIpAddress = function() {
-    var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=935f7d46cc714485a37a6995ea276daa";
+    var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
     fetch(apiUrl)
     .then(function(response) {
 
         if (response.ok ) {
             response.json().then(function(data) {
                 var postal_code = data.postal_code
+                // var postal_code = null;
                 if (postal_code == null) {
                     alert("please enter a postal code");
                     $('#option').hide()
                     $('#welcomeScreen').show()
                     $('#answers').hide()
-                    var zipCodeQuestionText = $('h5').text('Zipcode')
+                    var zipCodeQuestionText = $('<h4>').text('Zipcode').addClass('is-light')
                     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
                     var zipcodeInput = $('#zipcodeInput')
                     zipcodeInput.append(zipCodeQuestionText, postalInput)
+                    // add more fuctionality to the click
                     $('#question').click(function(){
                         console.log($('#postalcodeInput').val())
                         var postal_code =  $('#postalcodeInput').val()
@@ -164,6 +181,6 @@ var gitIpAddress = function() {
         alert("Unable to connect to abstractapi"); 
     });
 };
-
+// get started with calling the IP address function and slider function
 gitIpAddress()
 bulmaSlider.attach();
