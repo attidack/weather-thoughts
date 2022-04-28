@@ -107,7 +107,7 @@ function setItems(){
 // api call section
 // gets a location key from accuweather based off the zip code
 var gitZipLocationKey = function(postal_code) {
-    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + postal_code;
+    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + "&q=" + postal_code;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
