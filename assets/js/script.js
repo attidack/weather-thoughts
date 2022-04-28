@@ -14,7 +14,6 @@ $('#question').click(function(){
     $('#answers').show()
     $('#option').show()
     handleSave()
-    iterateTempStatement()
 });
 
 $('#option').click(function(){
@@ -48,11 +47,11 @@ function iterateTempStatement(){
         answers.append(hot) 
         adding_Questions(choices)
     }else {
+        console.log(choices)
         alert('didnt load values')
     }
 }
 
-// Create Question Function
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
     $('#freezing').text(data.Answers.freezing)
@@ -85,28 +84,18 @@ function loadOptions(){
     setItems()
     }
 }
-
-
-
 function setItems(){
-    // let name = $('#name');
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
     let jacketOutput = $('#jacketOutput');
     let sweaterOutput = $('#sweaterOutput');  
-    // name.val(optionsObject.name);
     jacketRequirement.attr('value',options.jacket);
     jacketOutput.val(options.jacket);
     sweaterRequirement.attr('value',options.sweater);
     sweaterOutput.val(options.sweater);
 }
-
 var gitZipLocationKey = function(postal_code) {
-    postal_code = 84104;
-    // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
-
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -119,20 +108,17 @@ var gitZipLocationKey = function(postal_code) {
         }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to accuweather"); 
     });
 };
 var gitWeather = function(locationKey) {
-    // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ";
-
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
                  temp = data[0].Temperature.Imperial.Value
+                 console.log(temp)
                 iterateTempStatement()
                 
                 
@@ -142,50 +128,42 @@ var gitWeather = function(locationKey) {
          }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to accuweather"); 
     });
 };
 var gitIpAddress = function() {
-    // format the githup api url
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=935f7d46cc714485a37a6995ea276daa";
-
-    //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
-        if (response.ok) {
+
+        if (response.ok ) {
             response.json().then(function(data) {
-                console.log(data.postal_code)
                 var postal_code = data.postal_code
+                if (postal_code == null) {
+                    alert("please enter a postal code");
+                    $('#option').hide()
+                    $('#welcomeScreen').show()
+                    $('#answers').hide()
+                    var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
+                    var optionsQuestions = $('#optionsQuestions')
+                    optionsQuestions.append(postalInput)
+                    $('#question').click(function(){
+                        console.log($('#postalcodeInput').val())
+                        var postal_code =  $('#postalcodeInput').val()
+                        gitZipLocationKey(postal_code)
+                    });
+                    
+                }
                 gitZipLocationKey(postal_code)
-                
             });
-        } else if (postal_code = null) {
-            alert("please enter a postal code");
-            $('#welcomeScreen').show()
-            $('#answers').hide()
-            $('#option').hide()
-            var postalInput = $('<input>').attr('id', 'postalcodeInput');
-            var postal_code = 84104;
-            var optionsQuestions = $('#optionsQuestions')
-            optionsQuestions.append(postalInput)
-            gitZipLocationKey(postal_code)
         } else {
-            $.getJSON('https://ipinfo.io/json', function(data) {
-                console.log(JSON.stringify(data, null, 2));
-            });
             alert("Ip not found");
         }
     })
     .catch(function(error) {
-        // Notic ethis '.catch()' getting chained onto the end of the '.then()' method
         alert("Unable to connect to abstractapi"); 
     });
 };
-
-// $.getJSON('https://ipinfo.io/json', function(data) {
-//   console.log(JSON.stringify(data, null, 2));
-// });
 
 gitIpAddress()
 bulmaSlider.attach();
