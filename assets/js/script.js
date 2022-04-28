@@ -141,7 +141,7 @@ var gitWeather = function(locationKey) {
          }
     })
     .catch(function(error) {
-        alert("Unable to connect to accuweather"); 
+        alert("Unable to connect to accuweather locations key"); 
     });
 };
 

@@ -1,7 +1,7 @@
 @import "https://cdn.jsdelivr.net/npm/bulma@0.9.3/css/bulma.min.css";
 
 body{
-    background-image: url("./assets/images/bg.jpeg");
+    background-image: url("/assets/images/bg.jpeg");
     height: 100vh;
     background-color: hsl(0, 0%, 21%);
     background-position: center; /* Center the image */
