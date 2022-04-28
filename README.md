@@ -30,7 +30,7 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 ## Notes
 - these api are free thus have a limited amout of calls they can do.
 - weather API calls are limited to 50 
-(25 page refreshes) 
+(25 page refreshes) per day
 - ipaddress api calls are limited to 1 request per second
 
 ## Live-site
