@@ -151,7 +151,7 @@ var gitIpAddress = function() {
     //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
-        if (response.ok && postal_code) {
+        if (response.ok) {
             response.json().then(function(data) {
                 var postal_code = data.postal_code
                 gitZipLocationKey(postal_code)
