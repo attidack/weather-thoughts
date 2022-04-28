@@ -33,24 +33,25 @@ loadOptions()
 
 // creates html based on temperatures and options
 function iterateTempStatement(){
+    console.log(sweaterRequirementElement.val())
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
-    if (temp < sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
+    if (temp <= sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
         answers.append(tooCold)
         adding_Questions(choices)
         
-    } else if (temp < sweaterRequirementElement.val() && temp < jacketRequirementElement.val()) {
+    } else if (temp <= sweaterRequirementElement.val() && temp < jacketRequirementElement.val()) {
         var freezing = $('<div>').attr('id', 'freezing');
         answers.append(freezing)
         adding_Questions(choices)
         
-    } else if (temp > sweaterRequirementElement.val() && temp < 90){
+    } else if (temp >= sweaterRequirementElement.val() && temp < 90){
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
-    }else if (temp > 91){
+    }else if (temp >= 91){
         var hot = $('<div>').attr('id', 'hot');
         answers.append(hot) 
         adding_Questions(choices)
