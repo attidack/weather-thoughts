@@ -40,6 +40,7 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 ## Screenshot
 
 ![Screenshot](assets/images/screenshot.png)
+![Screenshot2](assets/images/screenshot2.png)
 
 
 ## Credits
