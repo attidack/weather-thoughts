@@ -144,15 +144,15 @@ var gitIpAddress = function() {
                     $('#option').hide()
                     $('#welcomeScreen').show()
                     $('#answers').hide()
+                    var zipCodeQuestionText = $('h5').text('Zipcode')
                     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
-                    var optionsQuestions = $('#optionsQuestions')
-                    optionsQuestions.append(postalInput)
+                    var zipcodeInput = $('#zipcodeInput')
+                    zipcodeInput.append(zipCodeQuestionText, postalInput)
                     $('#question').click(function(){
                         console.log($('#postalcodeInput').val())
                         var postal_code =  $('#postalcodeInput').val()
                         gitZipLocationKey(postal_code)
                     });
-                    
                 }
                 gitZipLocationKey(postal_code)
             });

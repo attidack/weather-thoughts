@@ -10,20 +10,20 @@ body{
 }
 
 .answers {
-    height: 25%;
     margin: 0 auto;
-    padding: 50px 0;
     text-align: center;
     font-size: 35px;
 }
 
 #welcomeScreen {
-    width: 35%;
-    height: 35%;
     margin: 0 auto;
-    padding: 200px 0;
     text-align: center;
     line-height: 1.5;
+    
+}
+.main {
+    border: 1px solid #fff;
+    box-shadow: 16px 16px 10px black
 }
 
 #welcomeScreen h3 {
