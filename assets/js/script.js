@@ -47,6 +47,7 @@ function iterateTempStatement(){
         answers.append(hot) 
         adding_Questions(choices)
     }else {
+        console.log(choices)
         alert('didnt load values')
     }
 }
@@ -104,7 +105,6 @@ var gitZipLocationKey = function(postal_code) {
     
     // format the githup api url
     var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=qAJl4fqptTuBALsqBF3AUC4OcOz3IQSZ&q=" + postal_code;
-
     //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
@@ -132,6 +132,7 @@ var gitWeather = function(locationKey) {
         if (response.ok) {
             response.json().then(function(data) {
                  temp = data[0].Temperature.Imperial.Value
+                 console.log(temp)
                 iterateTempStatement()
                 
                 
@@ -152,23 +153,29 @@ var gitIpAddress = function() {
     //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
-        if (response.ok) {
+        var postal_code = null
+        if (response.ok && postal_code) {
             response.json().then(function(data) {
-                console.log(data.postal_code)
-                var postal_code = data.postal_code
+                //var postal_code = data.postal_code
                 gitZipLocationKey(postal_code)
-                
             });
-        } else if (postal_code = null) {
+        } else if (postal_code == null) {
             alert("please enter a postal code");
-            $('#welcomeScreen').show()
-            $('#answers').hide()
+            // $('#welcomeScreen').show()
+            // $('#answers').hide()
             $('#option').hide()
-            var postalInput = $('<input>').attr('id', 'postalcodeInput');
-            var postal_code = postalcodeInput.val()
-            var optionsQuestions = $('#optionsQuestions')
-            optionsQuestions.append(postalInput)
-            gitZipLocationKey(postal_code)
+            var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
+            var updateBtn = $('<button>').addClass('button is-light').attr('id', 'updateBtn').attr('placeholder', 'update').text('update');
+            // var optionsQuestions = $('#optionsQuestions')
+            // optionsQuestions.append(postalInput, updateBtn)
+            answers.append(postalInput, updateBtn)
+            $('#updateBtn').click(function(){
+                console.log($('#postalcodeInput').val())
+                var postal_code =  $('#postalcodeInput').val()
+                gitZipLocationKey(postal_code)
+                $('#option').show()
+            });
+            
         } else {
             alert("Ip not found");
         }
