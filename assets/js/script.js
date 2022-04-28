@@ -108,7 +108,7 @@ function setItems(){
 // api call section
 // gets a location key from accuweather based off the zip code
 var gitZipLocationKey = function(postal_code) {
-    var apiUrl = "http://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + "&q=" + postal_code;
+    var apiUrl = "https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + "&q=" + postal_code;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
@@ -126,7 +126,7 @@ var gitZipLocationKey = function(postal_code) {
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
 var gitWeather = function(locationKey) {
-    var apiUrl = "http://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKey;
+    var apiUrl = "https://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKey;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
