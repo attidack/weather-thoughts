@@ -89,12 +89,10 @@ function loadOptions(){
 
 
 function setItems(){
-    // let name = $('#name');
     let jacketRequirement = $('#sliderWithValue');
     let sweaterRequirement = $('#sliderWithValue2');
     let jacketOutput = $('#jacketOutput');
     let sweaterOutput = $('#sweaterOutput');  
-    // name.val(optionsObject.name);
     jacketRequirement.attr('value',options.jacket);
     jacketOutput.val(options.jacket);
     sweaterRequirement.attr('value',options.sweater);
@@ -153,10 +151,9 @@ var gitIpAddress = function() {
     //make a request to the url
     fetch(apiUrl)
     .then(function(response) {
-        var postal_code = null
         if (response.ok && postal_code) {
             response.json().then(function(data) {
-                //var postal_code = data.postal_code
+                var postal_code = data.postal_code
                 gitZipLocationKey(postal_code)
             });
         } else if (postal_code == null) {
