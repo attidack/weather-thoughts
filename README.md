@@ -23,9 +23,11 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 
 ## Future:
 
+- use bulma modal containers for options
+- add secondary weather api for backup
+- Metric options
 - "R" rated text for weather conditions
 - move to native desktop app
-- use bulma modal containers for options
 
 ## Notes
 - these api are free thus have a limited amout of calls they can do.
