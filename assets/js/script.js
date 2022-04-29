@@ -205,7 +205,6 @@ var gitIpAddress = function() {
                 var postal_code = data.postal_code
                 // var postal_code = null;
                 if (postal_code == null) {
-                    
                     var modal = $('<div>').addClass('modal is-active is-clipped');
                     var modalBackground = $('<div>').addClass('modal-background');
                     var modalContent = $('<div>').addClass('modal-content');
