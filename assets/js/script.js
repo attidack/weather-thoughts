@@ -33,7 +33,6 @@ loadOptions()
 
 // creates html based on temperatures and options
 function iterateTempStatement(){
-    console.log(sweaterRequirementElement.val())
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
@@ -56,8 +55,17 @@ function iterateTempStatement(){
         answers.append(hot) 
         adding_Questions(choices)
     }else {
-        console.log(choices)
-        alert('didnt load values')
+        var modal = $('<div>').addClass('modal  is-active');
+        var modalBackground = $('<div>').addClass('modal-background');
+        var modalContent = $('<div>').addClass('modal-content');
+        var modalText = $('<p>').text('didnt load values');
+        var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+        answers.append(modal);
+        modal.append(modalBackground, modalContent, modalClose);
+        modalContent.append(modalText);
+        $(modalClose).click(function(){
+            modal.removeClass('is-active')
+        });
     }
 }
 
@@ -117,11 +125,32 @@ var gitZipLocationKey = function(postal_code) {
                 gitWeather(locationKey)
             });
         } else {
-            alert("couldn't get the zipcode location");
+            var modal = $('<div>').addClass('modal is-active');
+            var modalBackground = $('<div>').addClass('modal-background');
+            var modalContent = $('<div>').addClass('modal-content');
+            var modalText = $('<p>').text("couldn't get the zipcode location");
+            var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+            answers.append(modal);
+            modal.append(modalBackground, modalContent, modalClose);
+            modalContent.append(modalText);
+            $(modalClose).click(function(){
+                modal.removeClass('is-active')
+            });
+            
         }
     })
     .catch(function(error) {
-        alert("Unable to connect to accuweather"); 
+        var modal = $('<div>').addClass('modal is-active');
+        var modalBackground = $('<div>').addClass('modal-background');
+        var modalContent = $('<div>').addClass('modal-content');
+        var modalText = $('<p>').text("Unable to connect to accuweather");
+        var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+        answers.append(modal);
+        modal.append(modalBackground, modalContent, modalClose);
+        modalContent.append(modalText);
+        $(modalClose).click(function(){
+            modal.removeClass('is-active')
+        });
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
@@ -131,18 +160,37 @@ var gitWeather = function(locationKey) {
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
-                 temp = data[0].Temperature.Imperial.Value
-                 console.log(temp)
+                 temp = data[0].Temperature.Imperial.Value;
                 iterateTempStatement()
                 
                 
             });
         } else {
-             alert("Temp not found");
+            var modal = $('<div>').addClass('modal is-active');
+            var modalBackground = $('<div>').addClass('modal-background');
+            var modalContent = $('<div>').addClass('modal-content');
+            var modalText = $('<p>').text("Temperature not found in api");
+            var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+            answers.append(modal);
+            modal.append(modalBackground, modalContent, modalClose);
+            modalContent.append(modalText);
+            $(modalClose).click(function(){
+                modal.removeClass('is-active')
+            });
          }
     })
     .catch(function(error) {
-        alert("Unable to connect to accuweather locations key"); 
+        var modal = $('<div>').addClass('modal is-active');
+        var modalBackground = $('<div>').addClass('modal-background');
+        var modalContent = $('<div>').addClass('modal-content');
+        var modalText = $('<p>').text("Unable to connect to accuweather locations key");
+        var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+        answers.append(modal);
+        modal.append(modalBackground, modalContent, modalClose);
+        modalContent.append(modalText);
+        $(modalClose).click(function(){
+            modal.removeClass('is-active')
+        });
     });
 };
 
@@ -157,29 +205,58 @@ var gitIpAddress = function() {
                 var postal_code = data.postal_code
                 // var postal_code = null;
                 if (postal_code == null) {
-                    alert("please enter a postal code");
-                    $('#option').hide()
-                    $('#welcomeScreen').show()
-                    $('#answers').hide()
+                    
+                    var modal = $('<div>').addClass('modal is-active is-clipped');
+                    var modalBackground = $('<div>').addClass('modal-background');
+                    var modalContent = $('<div>').addClass('modal-content');
                     var zipCodeQuestionText = $('<h4>').text('Zipcode').addClass('is-light')
                     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
-                    var zipcodeInput = $('#zipcodeInput')
-                    zipcodeInput.append(zipCodeQuestionText, postalInput)
+                    var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
+                    modalContent.append(zipCodeQuestionText, postalInput, postalBtn)
+                    var modalText = $('<p>').text('please enter a postal code');
+                    var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+                    answers.append(modal);
+                    modal.append(modalBackground, modalContent, modalClose);
+                    modalContent.append(modalText);
                     // add more fuctionality to the click
-                    $('#question').click(function(){
-                        console.log($('#postalcodeInput').val())
+                    $('#zipCodeBtn').click(function(){
                         var postal_code =  $('#postalcodeInput').val()
                         gitZipLocationKey(postal_code)
+                        modal.removeClass('is-active')
+                    });
+                    $(modalClose).click(function(){
+                        modal.removeClass('is-active')
                     });
                 }
                 gitZipLocationKey(postal_code)
             });
         } else {
-            alert("Ip not found");
+            var modal = $('<div>').addClass('modal is-active');
+            var modalBackground = $('<div>').addClass('modal-background');
+            var modalContent = $('<div>').addClass('modal-content');
+            var modalText = $('<p>').text("IP address not found with the api");
+            var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+            answers.append(modal);
+            modal.append(modalBackground, modalContent, modalClose);
+            modalContent.append(modalText);
+            $(modalClose).click(function(){
+                modal.removeClass('is-active')
+            });
         }
     })
     .catch(function(error) {
-        alert("Unable to connect to abstractapi"); 
+        var modal = $('<div>').addClass('modal is-active');
+        var modalBackground = $('<div>').addClass('modal-background');
+        var modalContent = $('<div>').addClass('modal-content');
+        var modalText = $('<p>').text("Unable to connect to abstractapi");
+        var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
+        answers.append(modal);
+        modal.append(modalBackground, modalContent, modalClose);
+        modalContent.append(modalText);
+        $(modalClose).click(function(){
+            modal.removeClass('is-active')
+        });
+       
     });
 };
 // get started with calling the IP address function and slider function
