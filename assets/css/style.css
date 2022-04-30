@@ -8,7 +8,9 @@ body{
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
 }
-
+.modal-content{
+    height: 100vh;
+}
 .answers {
     margin: 0 auto;
     text-align: center;
@@ -43,12 +45,9 @@ body{
 #options {
     margin: 0 auto;
 }
-label{
-    color: #fff;
-}
+
 button {
     background-color: rgba(250, 250, 250, 1);
-    justify-content: center;
 }
 
 button:hover {

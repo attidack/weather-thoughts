@@ -35,8 +35,8 @@ function modalModule(){
     clearPage()
     modal = $('<div>').addClass('modal is-active');
     modalBackground = $('<div>').addClass('modal-background');
-    modalContent = $('<div>').addClass('modal-content  has-text-white is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
-    contentDiv = $('<div>').addClass('column main answers is-three-quarters-mobile');
+    modalContent = $('<div>').addClass('modal-content is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
+    contentDiv = $('<div>').addClass('column main answers is-three-quarters-mobile has-text-white');
     answers.append(modal);
     modalContent.append(contentDiv)
     modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
@@ -226,6 +226,7 @@ var getIpAddress = function() {
     .then(function(response) {
         if (response.ok ) {
             response.json().then(function(data) {
+                // postal code error toggle
                 var postal_code = data.postal_code;
                 // var postal_code = null;
                 if (postal_code == null) {
