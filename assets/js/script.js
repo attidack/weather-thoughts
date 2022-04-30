@@ -21,12 +21,17 @@ $('#option').click(function(){
     optionsMenu();
     $('#option').hide()
 });
-
-// options menu
-function optionsMenu (){
+// clear page function
+function clearPage(){
     while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
+}
+
+
+// options menu
+function optionsMenu (){
+    clearPage()
     answers.removeClass('main answers')
     var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal is-active');
     answers.append(optionsScreen);
@@ -59,14 +64,38 @@ function optionsMenu (){
     });    
 }
 
+// zipcode prompt
+function zipcodeMenu(){
+    clearPage()
+    $('#option').hide()
+    answers.removeClass('main')
+    var modal = $('<div>').addClass('modal is-active is-clipped');
+    var modalBackground = $('<div>').addClass('modal-background');
+    var modalContent = $('<div>').addClass('modal-content');
+    var zipCodeQuestionText = $('<h4>').text('Please enter your Zipcode').addClass('is-light')
+    var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
+    var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
+    modalContent.append(zipCodeQuestionText, postalInput);
+    answers.append(modal);
+    modal.append(modalBackground, modalContent, postalBtn);
+    // add more fuctionality to the click
+    $('#zipCodeBtn').click(function(){
+        var postal_code =  $('#postalcodeInput').val()
+        gitZipLocationKey(postal_code)
+        modal.removeClass('is-active')
+        answers.addClass('main')
+        $('#option').show()
+    });
+    
+}
+
+
 // call to load options
 loadOptions()
 
 // creates html based on temperatures and options
 function iterateTempStatement(){
-   while (answers[0].hasChildNodes()) {
-        answers[0].removeChild(answers[0].lastChild);
-    }
+    clearPage()
     console.log(sweaterOutputText)
     if (temp <= sweaterOutputText && temp >= jacketOutputText) {
         var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
@@ -87,6 +116,9 @@ function iterateTempStatement(){
         answers.append(hot) 
         adding_Questions(choices)
     }else {
+        $('#option').hide()
+        clearPage()
+        answers.removeClass('main')
         var modal = $('<div>').addClass('modal  is-active');
         var modalBackground = $('<div>').addClass('modal-background');
         var modalContent = $('<div>').addClass('modal-content');
@@ -97,6 +129,7 @@ function iterateTempStatement(){
         modalContent.append(modalText);
         $(modalClose).click(function(){
             modal.removeClass('is-active')
+            $('#option').show()
         });
     }
 }
@@ -168,7 +201,7 @@ var gitZipLocationKey = function(postal_code) {
         var modal = $('<div>').addClass('modal is-active');
         var modalBackground = $('<div>').addClass('modal-background');
         var modalContent = $('<div>').addClass('modal-content');
-        var modalText = $('<p>').text("Unable to connect to accuweather");
+        var modalText = $('<p>').text("Unable to connect to accuweather" + error);
         var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
         answers.append(modal);
         modal.append(modalBackground, modalContent, modalClose);
@@ -208,7 +241,7 @@ var gitWeather = function(locationKey) {
         var modal = $('<div>').addClass('modal is-active');
         var modalBackground = $('<div>').addClass('modal-background');
         var modalContent = $('<div>').addClass('modal-content');
-        var modalText = $('<p>').text("Unable to connect to accuweather locations key");
+        var modalText = $('<p>').text("Unable to connect to accuweather locations key" + error);
         var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
         answers.append(modal);
         modal.append(modalBackground, modalContent, modalClose);
@@ -226,28 +259,10 @@ var gitIpAddress = function() {
 
         if (response.ok ) {
             response.json().then(function(data) {
-                var postal_code = data.postal_code
+                var postal_code = data.postal_code;
                 // var postal_code = null;
                 if (postal_code == null) {
-                    var modal = $('<div>').addClass('modal is-active is-clipped');
-                    var modalBackground = $('<div>').addClass('modal-background');
-                    var modalContent = $('<div>').addClass('modal-content');
-                    var zipCodeQuestionText = $('<h4>').text('Please enter your Zipcode').addClass('is-light')
-                    var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
-                    var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
-                    modalContent.append(zipCodeQuestionText, postalInput)
-                    var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
-                    answers.append(modal);
-                    modal.append(modalBackground, modalContent, modalClose, postalBtn);
-                    // add more fuctionality to the click
-                    $('#zipCodeBtn').click(function(){
-                        var postal_code =  $('#postalcodeInput').val()
-                        gitZipLocationKey(postal_code)
-                        modal.removeClass('is-active')
-                    });
-                    $(modalClose).click(function(){
-                        modal.removeClass('is-active')
-                    });
+                    zipcodeMenu();
                 }
                 gitZipLocationKey(postal_code)
             });
@@ -269,7 +284,7 @@ var gitIpAddress = function() {
         var modal = $('<div>').addClass('modal is-active');
         var modalBackground = $('<div>').addClass('modal-background');
         var modalContent = $('<div>').addClass('modal-content');
-        var modalText = $('<p>').text("Unable to connect to abstractapi");
+        var modalText = $('<p>').text("Unable to connect to abstractapi" + error);
         var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
         answers.append(modal);
         modal.append(modalBackground, modalContent, modalClose);
