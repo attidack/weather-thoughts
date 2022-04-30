@@ -207,15 +207,14 @@ var gitIpAddress = function() {
                     var modal = $('<div>').addClass('modal is-active is-clipped');
                     var modalBackground = $('<div>').addClass('modal-background');
                     var modalContent = $('<div>').addClass('modal-content');
-                    var zipCodeQuestionText = $('<h4>').text('Zipcode').addClass('is-light')
+                    var zipCodeQuestionText = $('<h4>').text('Please enter your Zipcode').addClass('is-light')
                     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
                     var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
-                    modalContent.append(zipCodeQuestionText, postalInput, postalBtn)
-                    var modalText = $('<p>').text('please enter a postal code');
+                    modalContent.append(zipCodeQuestionText, postalInput)
+                    var modalText = $('<div>');
                     var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
                     answers.append(modal);
-                    modal.append(modalBackground, modalContent, modalClose);
-                    modalContent.append(modalText);
+                    modal.append(modalBackground, modalContent, modalClose, postalBtn);
                     // add more fuctionality to the click
                     $('#zipCodeBtn').click(function(){
                         var postal_code =  $('#postalcodeInput').val()
