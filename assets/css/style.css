@@ -25,7 +25,8 @@ body{
 }
 .main {
     border: 1px solid #fff;
-    box-shadow: 16px 16px 10px black
+    box-shadow: 16px 16px 10px black;
+    background-color: rgba(0, 0, 0, 0.5);
 }
 
 #welcomeScreen h3 {
