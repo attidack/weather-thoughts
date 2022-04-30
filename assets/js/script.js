@@ -6,6 +6,10 @@ let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
 var temp;
 var choices;
+var sweaterSlider;
+var jacketSlider;
+var jacketOutputText;
+var sweaterOutputText;
 $.getJSON('data.json', function (data){
     choices = data
 });
@@ -26,7 +30,7 @@ $('#option').click(function(){
     optionsMenu();
     // $('#welcomeScreen').show()
     // $('#answers').hide()
-    // $('#option').hide()
+    $('#option').hide()
 });
 
 // options menu
@@ -45,20 +49,22 @@ function optionsMenu (){
     var sweaterDiv = $('<div>');
     var sweaterH4 = $('<h4>').text('What temp to put on a sweater');
     var sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', '65').attr('step', '1').attr('type', 'range');
-    var sweaterOutputText = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text('65');
+    var sweaterOutputText = $('<output>').attr('for', 'sliderWithValue2').attr('id', 'sweaterOutput').text('65');
     sweaterDiv.append(sweaterH4, sweaterSlider, sweaterOutputText);
     var goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
     optionsQuestions.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
-    modal.append(modalBackground, modalContent);
+    optionsScreen.append(modalContent);
+    bulmaSlider.attach();
     $(goBtn).click(function(){
-        handleSave()
+        handleSave(jacketSlider, sweaterSlider)
         optionsScreen.removeClass('is-active')
     });
+    
     
 }
 
 // call to load options
-// loadOptions()
+loadOptions()
 
 // creates html based on temperatures and options
 function iterateTempStatement(){
@@ -108,15 +114,14 @@ function adding_Questions(data){
 }
 
 // saves options to local storage
-function handleSave(){
-    let jacketRequirement = $('#sliderWithValue').val()
-    let sweaterRequirement = $('#sliderWithValue2').val()
+function handleSave(jacketSlider, sweaterSlider){
+    let jacketRequirement = jacketSlider.val()
+    let sweaterRequirement = sweaterSlider.val()
     var optionsObject = {
         jacket: jacketRequirement,
         sweater: sweaterRequirement,
     }
-    options = optionsObject
-    options[optionsObject.zip] =  optionsObject.jacket
+    options=  optionsObject.jacket
     localStorage.setItem('options', JSON.stringify(optionsObject))
     
     
@@ -128,19 +133,15 @@ function loadOptions(){
         options = {}
     } else {
         options = JSON.parse(optionsObject)
-    setItems()
+        setItems(options)
     }
 }
 // set or define relationships with objects like the sliders and whats in local storage
-function setItems(){
-    let jacketRequirement = $('#sliderWithValue');
-    let sweaterRequirement = $('#sliderWithValue2');
-    let jacketOutput = $('#jacketOutput');
-    let sweaterOutput = $('#sweaterOutput');  
-    jacketRequirement.attr('value',options.jacket);
-    jacketOutput.val(options.jacket);
-    sweaterRequirement.attr('value',options.sweater);
-    sweaterOutput.val(options.sweater);
+function setItems(options){  
+    jacketSlider.attr('value',options.jacket);
+    jacketOutputText.val(options.jacket);
+    sweaterSlider.attr('value',options.sweater);
+    sweaterOutputText.val(options.sweater);
 }
 
 // api call section
@@ -287,4 +288,3 @@ var gitIpAddress = function() {
 };
 // get started with calling the IP address function and slider function
 gitIpAddress()
-bulmaSlider.attach();
