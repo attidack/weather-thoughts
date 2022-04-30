@@ -70,7 +70,6 @@ function optionsMenu (){
     sweaterDiv.append(sweaterH4, sweaterSlider, sweaterOutput);
     goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
     contentDiv.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
-    
     bulmaSlider.attach();
     $(goBtn).click(function(){
         handleSave(jacketSlider, sweaterSlider)
@@ -110,7 +109,6 @@ function iterateTempStatement(){
         contentDiv.append(tooCold, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
-        
     } else if (temp <= sweaterOutputText && temp <= jacketOutputText) {
         modalModule()
         $('.modal-close').hide()
@@ -118,7 +116,6 @@ function iterateTempStatement(){
         contentDiv.append(freezing, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
-        
     } else if (temp >= sweaterOutputText && temp <= 90){
         modalModule()
         $('.modal-close').hide()
@@ -126,7 +123,6 @@ function iterateTempStatement(){
         contentDiv.append(nice, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
-
     }else if (temp >= 91){
         modalModule()
         $('.modal-close').hide()
@@ -139,7 +135,6 @@ function iterateTempStatement(){
         var modalText = $('<p>').text('didnt load values');
         $('#option').hide
         contentDiv.append(modalText);
-        
     }
 }
 // adds the data to the questions
@@ -191,7 +186,6 @@ var getZipLocationKey = function(postal_code) {
             var modalText = $('<p>').text("couldn't get the zipcode location");
             $('#option').hide
             contentDiv.append(modalText);
-            
         }
     })
     .catch(function(error) {
@@ -230,7 +224,6 @@ var getIpAddress = function() {
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
     fetch(apiUrl)
     .then(function(response) {
-
         if (response.ok ) {
             response.json().then(function(data) {
                 var postal_code = data.postal_code;
