@@ -17,23 +17,16 @@ let weatherApiKey = 'QnoBmmKUFEVUywOBW0Xbu5EnxoX0Jyot'
 // api key for the IPaddress https://www.abstractapi.com/ip-geolocation-api
 let ipAddressApiKey = '935f7d46cc714485a37a6995ea276daa'
 
-// on click functions for the buttons
-// $('#question').click(function(){
-//     $('#welcomeScreen').hide()
-//     $('#answers').show()
-//     $('#option').show()
-//     handleSave()
-// });
-
 $('#option').click(function(){
     optionsMenu();
-    // $('#welcomeScreen').show()
-    // $('#answers').hide()
     $('#option').hide()
 });
 
 // options menu
 function optionsMenu (){
+    while (answers[0].hasChildNodes()) {
+        answers[0].removeChild(answers[0].lastChild);
+    }
     answers.removeClass('main answers')
     var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal is-active');
     answers.append(optionsScreen);
@@ -58,12 +51,12 @@ function optionsMenu (){
     $(goBtn).click(function(){
         handleSave(jacketSlider, sweaterSlider)
         loadOptions()
+        iterateTempStatement()
         optionsScreen.removeClass('is-active')
         $('#option').show()
         answers.addClass('main answers')
-    });
-    
-    
+        console.log(temp)
+    });    
 }
 
 // call to load options
@@ -74,18 +67,18 @@ function iterateTempStatement(){
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
-    console.log(sweaterRequirementElement.val())
-    if (temp <= sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
+    console.log(sweaterOutputText)
+    if (temp <= sweaterOutputText && temp >= jacketOutputText) {
         var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
         answers.append(tooCold)
         adding_Questions(choices)
         
-    } else if (temp <= sweaterRequirementElement.val() && temp < jacketRequirementElement.val()) {
+    } else if (temp <= sweaterOutputText && temp <= jacketOutputText) {
         var freezing = $('<div>').attr('id', 'freezing');
         answers.append(freezing)
         adding_Questions(choices)
         
-    } else if (temp >= sweaterRequirementElement.val() && temp < 90){
+    } else if (temp >= sweaterOutputText && temp <= 90){
         var nice = $('<div>').attr('id', 'nice');
         answers.append(nice)
         adding_Questions(choices)
