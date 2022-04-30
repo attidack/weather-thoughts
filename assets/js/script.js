@@ -30,7 +30,6 @@ function clearPage(){
         answers[0].removeChild(answers[0].lastChild);
     }
 }
-
 // modal html insert
 function modalModule(){
     clearPage()
@@ -51,9 +50,7 @@ function modalModule(){
     $(modalClose).click(function(){
         modal.removeClass('is-active')
     });
-    
 };
-
 // options menu
 function optionsMenu (){
     modalModule()
@@ -82,7 +79,6 @@ function optionsMenu (){
         console.log(temp)
     });    
 }
-
 // zipcode prompt
 function zipcodeMenu(){
     modalModule()
@@ -101,10 +97,8 @@ function zipcodeMenu(){
         modal.removeClass('is-active')
     });
 }
-
 // call to load options
 loadOptions()
-
 // creates html based on temperatures and options
 function iterateTempStatement(){
     clearPage()
@@ -148,7 +142,6 @@ function iterateTempStatement(){
         
     }
 }
-
 // adds the data to the questions
 function adding_Questions(data){
     $('#cold').text(data.Answers.cold)
@@ -156,7 +149,6 @@ function adding_Questions(data){
     $('#nice').text(data.Answers.nice)
     $('#hot').text(data.Answers.hot)
 }
-
 // saves options to local storage
 function handleSave(jacketSlider, sweaterSlider){
     let jacketRequirement = jacketSlider.val()
@@ -167,8 +159,6 @@ function handleSave(jacketSlider, sweaterSlider){
     }
     options=  optionsObject.jacket
     localStorage.setItem('options', JSON.stringify(optionsObject))
-    
-    
 }
 // loads options from local storage
 function loadOptions(){
@@ -185,7 +175,6 @@ function setItems(){
     jacketOutputText = options.jacket;
     sweaterOutputText = options.sweater;
 }
-
 // api call section
 // gets a location key from accuweather based off the zip code
 var getZipLocationKey = function(postal_code) {
