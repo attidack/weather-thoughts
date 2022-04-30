@@ -42,7 +42,6 @@ function optionsMenu (){
     var jacketSlider = $('<input>').attr('id', 'sliderWithValue').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', '50').attr('step', '1').attr('type', 'range');
     var jacketOutputText = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text('50');
     jacketDiv.append(jacketH4, jacketSlider, jacketOutputText);
-
     var sweaterDiv = $('<div>');
     var sweaterH4 = $('<h4>').text('What temp to put on a sweater');
     var sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', '65').attr('step', '1').attr('type', 'range');
