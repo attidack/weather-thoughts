@@ -35,8 +35,8 @@ function modalModule(){
     clearPage()
     modal = $('<div>').addClass('modal is-active');
     modalBackground = $('<div>').addClass('modal-background');
-    modalContent = $('<div>').addClass('modal-content answers has-text-white is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
-    contentDiv = $('<div>').addClass('column main is-12');
+    modalContent = $('<div>').addClass('modal-content  has-text-white is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
+    contentDiv = $('<div>').addClass('column main answers is-three-quarters-mobile');
     answers.append(modal);
     modalContent.append(contentDiv)
     modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
