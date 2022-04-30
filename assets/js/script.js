@@ -78,7 +78,6 @@ function zipcodeMenu(){
     modalContent.append(zipCodeQuestionText, postalInput);
     answers.append(modal);
     modal.append(modalBackground, modalContent, postalBtn);
-    // add more fuctionality to the click
     $('#zipCodeBtn').click(function(){
         var postal_code =  $('#postalcodeInput').val()
         gitZipLocationKey(postal_code)
