@@ -7,8 +7,8 @@ var temp;
 var choices;
 var sweaterOutput = $('sweaterOutput');
 var jacketOutput = $('jacketOutput');
-var jacketOutputText = 50;
-var sweaterOutputText = 65;
+var jacketOutputText = 50; // default value for what temp to put on a jacket
+var sweaterOutputText = 65; // default value for what temp to put on a sweater
 $.getJSON('data.json', function (data){
     choices = data
 });
