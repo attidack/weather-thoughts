@@ -97,7 +97,7 @@ function zipcodeMenu(){
     postalBtnDiv.append(postalBtn)
     $('#zipCodeBtn').click(function(){
         var postal_code =  $('#postalcodeInput').val()
-        gitZipLocationKey(postal_code)
+        getZipLocationKey(postal_code)
         modal.removeClass('is-active')
     });
 }
@@ -188,14 +188,14 @@ function setItems(){
 
 // api call section
 // gets a location key from accuweather based off the zip code
-var gitZipLocationKey = function(postal_code) {
+var getZipLocationKey = function(postal_code) {
     var apiUrl = "https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + "&q=" + postal_code;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
             response.json().then(function(data) {
                 var locationKey = data[0].Key
-                gitWeather(locationKey)
+                getWeather(locationKey)
             });
         } else {
             modalModule()
@@ -213,7 +213,7 @@ var gitZipLocationKey = function(postal_code) {
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
-var gitWeather = function(locationKey) {
+var getWeather = function(locationKey) {
     var apiUrl = "https://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKey;
     fetch(apiUrl)
     .then(function(response) {
@@ -237,7 +237,7 @@ var gitWeather = function(locationKey) {
     });
 };
 // looks up the zip code based on the IP address of the computer you are using, if no zipcode is found, it will ask you for a zipcode
-var gitIpAddress = function() {
+var getIpAddress = function() {
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
     fetch(apiUrl)
     .then(function(response) {
@@ -249,7 +249,7 @@ var gitIpAddress = function() {
                 if (postal_code == null) {
                     zipcodeMenu();
                 }
-                gitZipLocationKey(postal_code)
+                getZipLocationKey(postal_code)
             });
         } else {
             modalModule()
@@ -266,4 +266,4 @@ var gitIpAddress = function() {
     });
 };
 // get started with calling the IP address function and slider function
-gitIpAddress()
+getIpAddress()
