@@ -7,12 +7,14 @@ body{
     background-position: center; /* Center the image */
     background-repeat: no-repeat; /* Do not repeat the image */
     background-size: cover; /* Resize the background image to cover the entire container */
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
 }
 
 .answers {
     margin: 0 auto;
     text-align: center;
     font-size: 35px;
+    background-color: blue transparent 50%;
 }
 
 #welcomeScreen {
