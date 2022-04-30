@@ -11,6 +11,7 @@ var modalContent;
 var goBtnDiv;
 var goBtn;
 var modalClose;
+var contentDiv;
 var sweaterOutput = $('sweaterOutput');
 var jacketOutput = $('jacketOutput');
 var jacketOutputText = 50; // default value for what temp to put on a jacket
@@ -35,8 +36,10 @@ function modalModule(){
     clearPage()
     modal = $('<div>').addClass('modal is-active');
     modalBackground = $('<div>').addClass('modal-background');
-    modalContent = $('<div>').addClass('modal-content main answers has-text-white  is-flex is-justify-content-center is-align-items-center is-align-content-center');
+    modalContent = $('<div>').addClass('modal-content answers has-text-white is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
+    contentDiv = $('<div>').addClass('column main is-12');
     answers.append(modal);
+    modalContent.append(contentDiv)
     modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
     modal.append(modalBackground, modalContent, goBtnDiv, modalClose);
     goBtnDiv = $('<div>');
@@ -53,14 +56,11 @@ function modalModule(){
 
 // options menu
 function optionsMenu (){
-    clearPage()
-    answers.removeClass('main answers')
-    var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal is-active');
-    answers.append(optionsScreen);
-    var modalContent = $('<div>').addClass('modal-content is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
-    var optionsQuestions = $('<div>').attr('id', 'optionsQuestions').addClass('column main is-6');
+    modalModule()
+    $('.modal-close').hide()
+    $('#option').hide()
+    modalBackground.removeClass('modal-background');
     var optionsH3 = $('<h3>').text('Options');
-    modalContent.append(optionsQuestions);
     var jacketDiv = $('<div>');
     var jacketH4 = $('<h4>').text('What temp to put on a jacket');
     jacketSlider = $('<input>').attr('id', 'sliderWithValue').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', jacketOutputText).attr('step', '1').attr('type', 'range');
@@ -71,16 +71,14 @@ function optionsMenu (){
     sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', sweaterOutputText).attr('step', '1').attr('type', 'range');
     sweaterOutput = $('<output>').attr('for', 'sliderWithValue2').attr('id', 'sweaterOutput').text(sweaterOutputText);
     sweaterDiv.append(sweaterH4, sweaterSlider, sweaterOutput);
-    var goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
-    optionsQuestions.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
-    optionsScreen.append(modalContent);
+    goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
+    contentDiv.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
+    
     bulmaSlider.attach();
     $(goBtn).click(function(){
         handleSave(jacketSlider, sweaterSlider)
         loadOptions()
         iterateTempStatement()
-        optionsScreen.removeClass('is-active')
-        answers.addClass('main answers')
         console.log(temp)
     });    
 }
@@ -94,14 +92,13 @@ function zipcodeMenu(){
     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
     var postalBtnDiv = $('<div>')
     var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
-    modalContent.append(zipcodeDiv)
+    contentDiv.append(zipcodeDiv)
     zipcodeDiv.append(zipCodeQuestionText, postalInput, postalBtnDiv);
     postalBtnDiv.append(postalBtn)
     $('#zipCodeBtn').click(function(){
         var postal_code =  $('#postalcodeInput').val()
         gitZipLocationKey(postal_code)
         modal.removeClass('is-active')
-        answers.addClass('main')
     });
 }
 
@@ -115,8 +112,8 @@ function iterateTempStatement(){
     if (temp <= sweaterOutputText && temp >= jacketOutputText) {
         modalModule()
         $('.modal-close').hide()
-        var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
-        modalContent.append(tooCold);
+        var tooCold = $('<div>').attr('id', 'cold');
+        contentDiv.append(tooCold);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
         
@@ -124,7 +121,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var freezing = $('<div>').attr('id', 'freezing');
-        modalContent.append(freezing);
+        contentDiv.append(freezing);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
         
@@ -132,7 +129,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var nice = $('<div>').attr('id', 'nice');
-        modalContent.append(nice);
+        contentDiv.append(nice);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
 
@@ -140,15 +137,14 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var hot = $('<div>').attr('id', 'hot');
-        modalContent.append(hot);
+        contentDiv.append(hot);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
     }else {
         modalModule()
         var modalText = $('<p>').text('didnt load values');
-        var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
         $('#option').hide
-        modalContent.append(modalText, modalClose);
+        contentDiv.append(modalText);
         
     }
 }
@@ -205,7 +201,7 @@ var gitZipLocationKey = function(postal_code) {
             modalModule()
             var modalText = $('<p>').text("couldn't get the zipcode location");
             $('#option').hide
-            modalContent.append(modalText);
+            contentDiv.append(modalText);
             
         }
     })
@@ -213,7 +209,7 @@ var gitZipLocationKey = function(postal_code) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to accuweather" + error);
         $('#option').hide
-        modalContent.append(modalText);
+        contentDiv.append(modalText);
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
@@ -230,13 +226,13 @@ var gitWeather = function(locationKey) {
             modalModule()
             var modalText = $('<p>').text("Temperature not found in api");
             $('#option').hide
-            modalContent.append(modalText);
+            contentDiv.append(modalText);
          }
     })
     .catch(function(error) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to accuweather locations key" + error);
-        modalContent.append(modalText);
+        contentDiv.append(modalText);
         $('#option').hide
     });
 };
@@ -248,8 +244,8 @@ var gitIpAddress = function() {
 
         if (response.ok ) {
             response.json().then(function(data) {
-                // var postal_code = data.postal_code;
-                var postal_code = null;
+                var postal_code = data.postal_code;
+                // var postal_code = null;
                 if (postal_code == null) {
                     zipcodeMenu();
                 }
@@ -258,14 +254,14 @@ var gitIpAddress = function() {
         } else {
             modalModule()
             var modalText = $('<p>').text("IP address not found with the api");
-            modalContent.append(modalText);
+            contentDiv.append(modalText);
             $('#option').hide
         }
     })
     .catch(function(error) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to abstractapi" + error);
-        modalContent.append(modalText);
+        contentDiv.append(modalText);
         $('#option').hide
     });
 };
