@@ -47,7 +47,7 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 
 ## Credits
 
-The original idea came from an old desktop modding enviorment called [rainmeter](https://www.rainmeter.net/).  Rainmeter had a plug in called [Do I need a jacket](https://visualskins.com/skin/do-i-need-jacket-2) that stopped working in 2018.  This project is a start to bring that one back to life.
+The original idea came from an old desktop modding environment  called [rainmeter](https://www.rainmeter.net/).  Rainmeter had a plug in called [Do I need a jacket](https://visualskins.com/skin/do-i-need-jacket-2) that stopped working in 2018.  This project is a start to bring that one back to life.
 
 Collab with Cody Eddie and Paul Smith in group 4 at the U of U fullstack bootcamp
 

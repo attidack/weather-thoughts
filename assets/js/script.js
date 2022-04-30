@@ -193,7 +193,6 @@ var gitWeather = function(locationKey) {
         });
     });
 };
-
 // looks up the zip code based on the IP address of the computer you are using, if no zipcode is found, it will ask you for a zipcode
 var gitIpAddress = function() {
     var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
