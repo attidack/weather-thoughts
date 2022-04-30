@@ -15,18 +15,47 @@ let weatherApiKey = 'QnoBmmKUFEVUywOBW0Xbu5EnxoX0Jyot'
 let ipAddressApiKey = '935f7d46cc714485a37a6995ea276daa'
 
 // on click functions for the buttons
-$('#question').click(function(){
-    $('#welcomeScreen').hide()
-    $('#answers').show()
-    $('#option').show()
-    handleSave()
-});
+// $('#question').click(function(){
+//     $('#welcomeScreen').hide()
+//     $('#answers').show()
+//     $('#option').show()
+//     handleSave()
+// });
 
 $('#option').click(function(){
-    $('#welcomeScreen').show()
-    $('#answers').hide()
-    $('#option').hide()
+    optionsMenu();
+    // $('#welcomeScreen').show()
+    // $('#answers').hide()
+    // $('#option').hide()
 });
+
+// options menu
+function optionsMenu (){
+    var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal');
+    answers.append(optionsScreen);
+    var modalContent = $('<div>').addClass('modal-content is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
+    var optionsQuestions = $('<div>').attr('id', 'optionsQuestions').addClass('column main is-6');
+    var optionsH3 = $('<h3>').text('Options');
+    modalContent.append(optionsQuestions);
+    var jacketDiv = $('<div>');
+    var jacketH4 = $('<h4>').text('What temp to put on a jacket');
+    var jacketSlider = $('<input>').attr('id', 'sliderWithValue').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', '50').attr('step', '1').attr('type', 'range');
+    var jacketOutputText = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text('50');
+    jacketDiv.append(jacketH4, jacketSlider, jacketOutputText);
+
+    var sweaterDiv = $('<div>');
+    var sweaterH4 = $('<h4>').text('What temp to put on a sweater');
+    var sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', '65').attr('step', '1').attr('type', 'range');
+    var sweaterOutputText = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text('65');
+    sweaterDiv.append(sweaterH4, sweaterSlider, sweaterOutputText);
+    var goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
+    optionsQuestions.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
+    modal.append(modalBackground, modalContent);
+    $(goBtn).click(function(){
+        handleSave()
+    });
+    
+}
 
 // call to load options
 loadOptions()
@@ -36,6 +65,7 @@ function iterateTempStatement(){
    while (answers[0].hasChildNodes()) {
         answers[0].removeChild(answers[0].lastChild);
     }
+    console.log(sweaterRequirementElement.val())
     if (temp <= sweaterRequirementElement.val() && temp > jacketRequirementElement.val()) {
         var tooCold = $('<div>').attr('id', 'cold').addClass("column is-three-fifths answers");
         answers.append(tooCold)
@@ -211,7 +241,6 @@ var gitIpAddress = function() {
                     var postalInput = $('<input>').attr('id', 'postalcodeInput').attr('placeholder', 'please enter your zip code');
                     var postalBtn = $('<button>').addClass('button is-small is-rounded').attr('id','zipCodeBtn').text('Submit');
                     modalContent.append(zipCodeQuestionText, postalInput)
-                    var modalText = $('<div>');
                     var modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
                     answers.append(modal);
                     modal.append(modalBackground, modalContent, modalClose, postalBtn);
