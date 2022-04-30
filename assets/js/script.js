@@ -31,7 +31,7 @@ $('#option').click(function(){
 
 // options menu
 function optionsMenu (){
-    var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal');
+    var optionsScreen = $('<div>').attr('id', 'welcomeScreen').addClass('section has-text-primary-light modal is-active');
     answers.append(optionsScreen);
     var modalContent = $('<div>').addClass('modal-content is-flex is-justify-content-center is-align-items-center is-align-content-center columns');
     var optionsQuestions = $('<div>').attr('id', 'optionsQuestions').addClass('column main is-6');
@@ -53,12 +53,13 @@ function optionsMenu (){
     modal.append(modalBackground, modalContent);
     $(goBtn).click(function(){
         handleSave()
+        optionsScreen.removeClass('is-active')
     });
     
 }
 
 // call to load options
-loadOptions()
+// loadOptions()
 
 // creates html based on temperatures and options
 function iterateTempStatement(){
