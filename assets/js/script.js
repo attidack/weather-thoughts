@@ -5,9 +5,9 @@ let sweaterRequirementElement = $('#sliderWithValue2')
 let answers = $('#answers')
 var temp;
 var choices;
-var sweaterSlider;
-var jacketSlider;
-var jacketOutputText = 5;
+var sweaterOutput = $('sweaterOutput');
+var jacketOutput = $('jacketOutput');
+var jacketOutputText = 50;
 var sweaterOutputText = 65;
 $.getJSON('data.json', function (data){
     choices = data
@@ -43,13 +43,13 @@ function optionsMenu (){
     modalContent.append(optionsQuestions);
     var jacketDiv = $('<div>');
     var jacketH4 = $('<h4>').text('What temp to put on a jacket');
-    var jacketSlider = $('<input>').attr('id', 'sliderWithValue').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', jacketOutputText).attr('step', '1').attr('type', 'range');
-    var jacketOutput = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text(jacketOutputText);
+    jacketSlider = $('<input>').attr('id', 'sliderWithValue').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', jacketOutputText).attr('step', '1').attr('type', 'range');
+    jacketOutput = $('<output>').attr('for', 'sliderWithValue').attr('id', 'jacketOutput').text(jacketOutputText);
     jacketDiv.append(jacketH4, jacketSlider, jacketOutput);
     var sweaterDiv = $('<div>');
     var sweaterH4 = $('<h4>').text('What temp to put on a sweater');
-    var sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', sweaterOutputText).attr('step', '1').attr('type', 'range');
-    var sweaterOutput = $('<output>').attr('for', 'sliderWithValue2').attr('id', 'sweaterOutput').text(sweaterOutputText);
+    sweaterSlider = $('<input>').attr('id', 'sliderWithValue2').addClass('slider has-output is-fullwidth').attr('min', '0').attr('max', '100').attr('value', sweaterOutputText).attr('step', '1').attr('type', 'range');
+    sweaterOutput = $('<output>').attr('for', 'sliderWithValue2').attr('id', 'sweaterOutput').text(sweaterOutputText);
     sweaterDiv.append(sweaterH4, sweaterSlider, sweaterOutput);
     var goBtn = $('<button>').addClass('button is-rounded').attr('id', 'question').text('Save')
     optionsQuestions.append(optionsH3, jacketDiv, sweaterDiv, goBtn);
@@ -57,6 +57,7 @@ function optionsMenu (){
     bulmaSlider.attach();
     $(goBtn).click(function(){
         handleSave(jacketSlider, sweaterSlider)
+        loadOptions()
         optionsScreen.removeClass('is-active')
         $('#option').show()
         answers.addClass('main answers')
@@ -140,10 +141,8 @@ function loadOptions(){
 }
 // set or define relationships with objects like the sliders and whats in local storage
 function setItems(){  
-    jacketSlider.attr('value',options.jacket);
-    jacketOutput.val(options.jacket);
-    sweaterSlider.attr('value',options.sweater);
-    sweaterOutput.val(options.sweater);
+    jacketOutputText = options.jacket;
+    sweaterOutputText = options.sweater;
 }
 
 // api call section
