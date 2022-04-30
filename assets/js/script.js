@@ -41,7 +41,7 @@ function modalModule(){
     answers.append(modal);
     modalContent.append(contentDiv)
     modalClose = $('<button>').addClass('modal-close').attr('aria-label', 'close');
-    modal.append(modalBackground, modalContent, goBtnDiv, modalClose);
+    modal.append(modalBackground, modalContent, modalClose);
     goBtnDiv = $('<div>');
     goBtn = $('<button>').addClass('button is-rounded').attr('id', 'option').text('Options');
     goBtnDiv.append(goBtn)
@@ -113,7 +113,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var tooCold = $('<div>').attr('id', 'cold');
-        contentDiv.append(tooCold);
+        contentDiv.append(tooCold, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
         
@@ -121,7 +121,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var freezing = $('<div>').attr('id', 'freezing');
-        contentDiv.append(freezing);
+        contentDiv.append(freezing, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
         
@@ -129,7 +129,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var nice = $('<div>').attr('id', 'nice');
-        contentDiv.append(nice);
+        contentDiv.append(nice, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
 
@@ -137,7 +137,7 @@ function iterateTempStatement(){
         modalModule()
         $('.modal-close').hide()
         var hot = $('<div>').attr('id', 'hot');
-        contentDiv.append(hot);
+        contentDiv.append(hot, goBtnDiv);
         modalBackground.removeClass('modal-background');
         adding_Questions(choices)
     }else {
