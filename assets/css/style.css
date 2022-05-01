@@ -23,6 +23,8 @@ body{
 
 .main {
     border: 1px solid #fff;
+    background-color: rgba(25, 55, 95, 0.5);
+    box-shadow: 15px 15px 15px rgba(0, 0, 0, .75)
 }
 
 #options {
