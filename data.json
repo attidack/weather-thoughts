@@ -1,10 +1,10 @@
 {
     "Answers":
         {
-            "cold": "Its cold! Wear a sweater",
-            "freezing": "its freezing! Wear a jacket",
-            "nice": "its a nice day, enjoy!",
-            "hot": "its too hot!"
+            "cold": "It's cold! Wear a sweater.",
+            "freezing": "It's freezing! Wear a jacket.",
+            "nice": "It's a nice day, enjoy!",
+            "hot": "It's too hot!"
         }
     
 }
