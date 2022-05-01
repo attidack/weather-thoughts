@@ -96,12 +96,8 @@ function zipcodeMenu(){
         modal.removeClass('is-active')
     });
 }
-// call to load options
-loadOptions()
 // creates html based on temperatures and options
 function iterateTempStatement(){
-    clearPage()
-    console.log(sweaterOutputText)
     if (temp <= sweaterOutputText && temp >= jacketOutputText) {
         modalModule()
         $('.modal-close').hide()
@@ -171,6 +167,35 @@ function setItems(){
     sweaterOutputText = options.sweater;
 }
 // api call section
+// looks up the zip code based on the IP address of the computer you are using, if no zipcode is found, it will ask you for a zipcode
+var getIpAddress = function() {
+    var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
+    fetch(apiUrl)
+    .then(function(response) {
+        if (response.ok ) {
+            response.json().then(function(data) {
+                // postal code error toggle
+                var postal_code = data.postal_code;
+                // var postal_code = null;
+                if (postal_code == null) {
+                    zipcodeMenu();
+                }
+                getZipLocationKey(postal_code)
+            });
+        } else {
+            modalModule()
+            var modalText = $('<p>').text("IP address not found with the api");
+            contentDiv.append(modalText);
+            $('#option').hide
+        }
+    })
+    .catch(function(error) {
+        modalModule()
+        var modalText = $('<p>').text("Unable to connect to abstractapi" + error);
+        contentDiv.append(modalText);
+        $('#option').hide
+    });
+};
 // gets a location key from accuweather based off the zip code
 var getZipLocationKey = function(postal_code) {
     var apiUrl = "https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKey + "&q=" + postal_code;
@@ -219,34 +244,7 @@ var getWeather = function(locationKey) {
         $('#option').hide
     });
 };
-// looks up the zip code based on the IP address of the computer you are using, if no zipcode is found, it will ask you for a zipcode
-var getIpAddress = function() {
-    var apiUrl = "https://ipgeolocation.abstractapi.com/v1/?api_key=" + ipAddressApiKey;
-    fetch(apiUrl)
-    .then(function(response) {
-        if (response.ok ) {
-            response.json().then(function(data) {
-                // postal code error toggle
-                var postal_code = data.postal_code;
-                // var postal_code = null;
-                if (postal_code == null) {
-                    zipcodeMenu();
-                }
-                getZipLocationKey(postal_code)
-            });
-        } else {
-            modalModule()
-            var modalText = $('<p>').text("IP address not found with the api");
-            contentDiv.append(modalText);
-            $('#option').hide
-        }
-    })
-    .catch(function(error) {
-        modalModule()
-        var modalText = $('<p>').text("Unable to connect to abstractapi" + error);
-        contentDiv.append(modalText);
-        $('#option').hide
-    });
-};
+// call to load options
+loadOptions()
 // get started with calling the IP address function and slider function
 getIpAddress()
