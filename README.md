@@ -20,11 +20,12 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 - Easy to use (no input needed for application to run)
 - Zipcode is pulled from ip address infromation
 - Current weather conditions pulled from acuweather api engine
+- Backup weather api, incase the first one has issues
+- Minimal HTML file (only 15 lines!)
+- Using Bulma css framework
 
 ## Future:
 
-- use bulma modal containers for options
-- add secondary weather api for backup
 - Metric options
 - "R" rated text for weather conditions
 - move to native desktop app
@@ -32,7 +33,7 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 ## Notes
 - these api are free thus have a limited amout of calls they can do.
 - weather API calls are limited to 50 
-(25 page refreshes) per day
+(25 page refreshes) per day, second api doubles this.
 - ipaddress api calls are limited to 1 request per second
 
 ## Live-site
@@ -43,13 +44,13 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 
 ![Screenshot](assets/images/screenshot.png)
 ![Screenshot2](assets/images/screenshot2.png)
+![errorscreen](assets/images/error.png)
 
 
 ## Credits
 
 The original idea came from an old desktop modding environment  called [rainmeter](https://www.rainmeter.net/).  Rainmeter had a plug in called [Do I need a jacket](https://visualskins.com/skin/do-i-need-jacket-2) that stopped working in 2018.  This project is a start to bring that one back to life.
-
-Collab with Cody Eddie and Paul Smith in group 4 at the U of U fullstack bootcamp
+Group project at bootcamp
 
 ## License
 
