@@ -224,8 +224,6 @@ var getZipLocationKey = function(postal_code) {
         $(goBtnBackup).click(function(){
             getZipLocationKeyBackup(postal_code);
         });
-        
-        
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
