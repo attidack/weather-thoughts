@@ -76,7 +76,6 @@ function optionsMenu (){
         handleSave(jacketSlider, sweaterSlider)
         loadOptions()
         iterateTempStatement()
-        console.log(temp)
     });    
 }
 // zipcode prompt
@@ -130,7 +129,7 @@ function iterateTempStatement(){
     }else {
         modalModule()
         var modalText = $('<p>').text('didnt load values');
-        $('#option').hide
+        $('#option').hide()
         contentDiv.append(modalText);
     }
 }
@@ -187,14 +186,14 @@ var getIpAddress = function() {
             modalModule()
             var modalText = $('<p>').text("IP address not found with the api");
             contentDiv.append(modalText);
-            $('#option').hide
+            $('#option').hide()
         }
     })
     .catch(function(error) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to abstractapi" + error );
         contentDiv.append(modalText);
-        $('#option').hide
+        $('#option').hide()
     });
 };
 // gets a location key from accuweather based off the zip code
@@ -210,14 +209,23 @@ var getZipLocationKey = function(postal_code) {
         } else {
             modalModule()
             var modalText = $('<p>').text("couldn't get the zipcode location");
-            $('#option').hide
+            $('#option').hide()
             contentDiv.append(modalText);
         }
     })
     .catch(function(error) {
         modalModule()
+        $('#option').hide()
+        var backupContentDiv = $('<div>')
+        var goBtnBackup = $('<button>').addClass('button is-rounded').text('Use Backup API');
         var modalText = $('<p>').text("Unable to connect to accuweather");
-        contentDiv.append(modalText);
+        contentDiv.append(backupContentDiv);
+        backupContentDiv.append(modalText, goBtnBackup)
+        $(goBtnBackup).click(function(){
+            getZipLocationKeyBackup(postal_code);
+        });
+        
+        
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
@@ -233,7 +241,7 @@ var getWeather = function(locationKey) {
         } else {
             modalModule()
             var modalText = $('<p>').text("Temperature not found in api");
-            $('#option').hide
+            $('#option').hide()
             contentDiv.append(modalText);
          }
     })
@@ -241,7 +249,7 @@ var getWeather = function(locationKey) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to accuweather locations key" + error);
         contentDiv.append(modalText);
-        $('#option').hide
+        $('#option').hide()
     });
 };
 // gets a location key from accuweather based off the zip code
@@ -257,14 +265,14 @@ var getZipLocationKeyBackup = function(postal_code) {
         } else {
             modalModule()
             var modalText = $('<p>').text("couldn't get the zipcode location");
-            $('#option').hide
+            $('#option').hide()
             contentDiv.append(modalText);
         }
     })
     .catch(function(error) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to accuweather" + error);
-        $('#option').hide
+        $('#option').hide()
         contentDiv.append(modalText);
     });
 };
@@ -281,7 +289,7 @@ var getWeatherBackup = function(locationKey) {
         } else {
             modalModule()
             var modalText = $('<p>').text("Temperature not found in api");
-            $('#option').hide
+            $('#option').hide()
             contentDiv.append(modalText);
          }
     })
@@ -289,7 +297,7 @@ var getWeatherBackup = function(locationKey) {
         modalModule()
         var modalText = $('<p>').text("Unable to connect to accuweather locations key" + error);
         contentDiv.append(modalText);
-        $('#option').hide
+        $('#option').hide()
     });
 };
 // call to load options
