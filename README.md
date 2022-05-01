@@ -23,6 +23,7 @@ simple webapp that tells you if you should wear a jacket or sweater based off th
 - Backup weather api, incase the first one has issues
 - Minimal HTML file (only 15 lines!)
 - Using Bulma css framework
+- Built using Jquery
 
 ## Future:
 
