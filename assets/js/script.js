@@ -20,7 +20,8 @@ $.getJSON('data.json', function (data){
     choices = data
 });
 // api key for the weather https://developer.accuweather.com/
-let weatherApiKey = 'TiXmLGjt1VUljvtN4743GGOYM1MIWVG7' 
+let weatherApiKey = 'QnoBmmKUFEVUywOBW0Xbu5EnxoX0Jyot' 
+let weatherApiKeyBackup = 'TiXmLGjt1VUljvtN4743GGOYM1MIWVG7' 
 // api key for the IPaddress https://www.abstractapi.com/ip-geolocation-api
 let ipAddressApiKey = '935f7d46cc714485a37a6995ea276daa'
 
@@ -191,7 +192,7 @@ var getIpAddress = function() {
     })
     .catch(function(error) {
         modalModule()
-        var modalText = $('<p>').text("Unable to connect to abstractapi" + error);
+        var modalText = $('<p>').text("Unable to connect to abstractapi" + error );
         contentDiv.append(modalText);
         $('#option').hide
     });
@@ -215,14 +216,61 @@ var getZipLocationKey = function(postal_code) {
     })
     .catch(function(error) {
         modalModule()
-        var modalText = $('<p>').text("Unable to connect to accuweather" + error);
-        $('#option').hide
+        var modalText = $('<p>').text("Unable to connect to accuweather");
         contentDiv.append(modalText);
     });
 };
 // uses locationkey data from the api above and looks up the current conditions for that location
 var getWeather = function(locationKey) {
     var apiUrl = "https://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKey;
+    fetch(apiUrl)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                 temp = data[0].Temperature.Imperial.Value;
+                iterateTempStatement()
+            });
+        } else {
+            modalModule()
+            var modalText = $('<p>').text("Temperature not found in api");
+            $('#option').hide
+            contentDiv.append(modalText);
+         }
+    })
+    .catch(function(error) {
+        modalModule()
+        var modalText = $('<p>').text("Unable to connect to accuweather locations key" + error);
+        contentDiv.append(modalText);
+        $('#option').hide
+    });
+};
+// gets a location key from accuweather based off the zip code
+var getZipLocationKeyBackup = function(postal_code) {
+    var apiUrl = "https://dataservice.accuweather.com/locations/v1/postalcodes/search?apikey=" + weatherApiKeyBackup + "&q=" + postal_code;
+    fetch(apiUrl)
+    .then(function(response) {
+        if (response.ok) {
+            response.json().then(function(data) {
+                var locationKey = data[0].Key
+                getWeatherBackup(locationKey)
+            });
+        } else {
+            modalModule()
+            var modalText = $('<p>').text("couldn't get the zipcode location");
+            $('#option').hide
+            contentDiv.append(modalText);
+        }
+    })
+    .catch(function(error) {
+        modalModule()
+        var modalText = $('<p>').text("Unable to connect to accuweather" + error);
+        $('#option').hide
+        contentDiv.append(modalText);
+    });
+};
+// uses locationkey data from the api above and looks up the current conditions for that location
+var getWeatherBackup = function(locationKey) {
+    var apiUrl = "https://dataservice.accuweather.com/currentconditions/v1/" + locationKey + "?apikey=" + weatherApiKeyBackup;
     fetch(apiUrl)
     .then(function(response) {
         if (response.ok) {
